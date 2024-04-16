@@ -1,8 +1,10 @@
 <script setup>
 
 import {ref, computed } from "vue";
+import {useRouter} from "vue-router";
 import {useSettingsStore} from "../store/SettingsStore.js";
 const settingsStore = useSettingsStore();
+const router = useRouter();
 
 import logo from '../assets/images/logo.png';
 
@@ -39,8 +41,8 @@ const menus = ref([
   },
   {
     id: 2,
-    title: "Fleet Tracking",
-    icon: "ri-taxi-fill",
+    title: "Manage Patients",
+    icon: "ri-team-fill",
     submenu: true,
     submenuItem: [
       {
@@ -121,15 +123,32 @@ const toggleSidebar = () => {
 }
 
 const toggleSubmenu = (menu_id) => {
-
+  submenuLv2Open.value = 0;
+  if (submenuOpen.value === menu_id) {
+    submenuOpen.value = 0;
+    return;
+  }
+  submenuOpen.value = menu_id;
 }
 
 const toggleSubmenuLv2 = (menu_id) => {
-
+  if (submenuLv2Open.value === menu_id) {
+    submenuLv2Open.value = 0;
+    return;
+  }
+  submenuLv2Open.value = menu_id;
 }
 
-const navigateToPage = (pathName, id, submenu, submenuLv2) => {
-
+const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
+  // if (pathName == "Dashboard") {
+  //   this.$store.dispatch("toggleSidebar", true);
+  // }
+  selectedMenu.value = id;
+  selectedSubMenu.value = submenu;
+  selectedSubMenuLv2.value = submenuLv2;
+  if (!hasSubmenu) {
+    router.push({ name: pathName });
+  }
 }
 
 </script>
@@ -168,8 +187,8 @@ const navigateToPage = (pathName, id, submenu, submenuLv2) => {
           <div v-for="(menu, index) in menus" :key="index">
             <li
                 class="text-gray-800 text-sm-c flex items-center gap-x-4 cursor-pointer py-1 px-2 hover:bg-indigo-100 hover:text-gray-600 rounded-md my-1"
-                :class="{ 'bg-indigo-500 text-white': selectedMenu === menu.id }"
-                @click="navigateToPage(menu.pathName, menu.id, 0, 0)"
+                :class="{ 'bg-indigo-500 text-white': selectedMenu === menu.id && !menu.submenu }"
+                @click="navigateToPage(menu.pathName, menu.id, 0, 0, menu.submenu)"
             >
                 <span>
                   <i class="text-2xl block float-left" :class="menu.icon"></i>

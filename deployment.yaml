@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helios-client-app
+  labels:
+    app: helios-client-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helios-client-app
+  template:
+    metadata:
+      labels:
+        app: helios-client-app
+    spec:
+      containers:
+        - name: helios-client-app
+          image: asia-southeast1-docker.pkg.dev/celtic-sunlight-419307/helios-client/helios-client:latest
+          ports:
+            - containerPort: 3000

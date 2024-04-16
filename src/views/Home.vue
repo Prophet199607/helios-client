@@ -2,50 +2,53 @@
 import DashboardCard from "../components/DashboardCard.vue";
 import {ref} from "vue";
 
+import user from '../assets/svg/user.svg';
+import eye from '../assets/svg/eye.svg';
+
 const expanded = ref(false)
 </script>
 
 <template>
   <div>
     <div>
-      <div class="grid grid-cols-1 md:grid-cols-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-2">
         <dashboard-card
-            svg_icon="payment_ico"
-            title="Payments"
+            :svg_icon="user"
+            title="No. of Patients"
             title_class="text-base-c"
-            value="LKR 0.00"
-            bg_color="bg-red-500"
+            value="15"
+            bg_color="bg-green-200"
         ></dashboard-card>
         <dashboard-card
-            svg_icon="commission"
-            title="Commision"
+            :svg_icon="eye"
+            title="DR Cases"
             title_class="text-base-c"
-            value="LKR 0.00"
-            bg_color="bg-orange-500"
+            value="5"
+            bg_color="bg-red-200"
         ></dashboard-card>
         <dashboard-card
             svg_icon="payment_company"
             title="Payments to Company"
             title_class="text-sm-c"
             value="LKR 0.00"
-            bg_color="bg-teal-500"
+            bg_color="bg-teal-200"
         ></dashboard-card>
         <dashboard-card
             svg_icon="cash_payment"
             title="Cash payments"
             title_class="text-base-c"
             value="LKR 0.00"
-            bg_color="bg-yellow-400"
+            bg_color="bg-yellow-300"
         ></dashboard-card>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4" v-if="expanded">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-2" v-if="expanded">
         <dashboard-card
             svg_icon="card_payment"
             title="Card payments"
             title_class="text-base-c"
             value="LKR 0.00"
-            bg_color="bg-purple-600"
+            bg_color="bg-purple-300"
         ></dashboard-card>
         <dashboard-card
             svg_icon="wallt_paymt"
