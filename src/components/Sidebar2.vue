@@ -140,9 +140,6 @@ const toggleSubmenuLv2 = (menu_id) => {
 }
 
 const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
-  // if (pathName == "Dashboard") {
-  //   this.$store.dispatch("toggleSidebar", true);
-  // }
   selectedMenu.value = id;
   selectedSubMenu.value = submenu;
   selectedSubMenuLv2.value = submenuLv2;
