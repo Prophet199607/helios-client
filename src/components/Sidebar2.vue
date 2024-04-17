@@ -166,7 +166,7 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
         >
           <div class="flex items-center justify-start w-full gap-x-2 transition-all duration-500 ease-in-out">
             <span class="flex font-bold uppercase transition-all duration-500 ease-in-out origin-left"
-                  :class="{ 'text-[0px]': !settingsStore.getSideBarState() }">HELIOS</span>
+                  :class="{ 'text-[0px]': !settingsStore.getSideBarState() }">HELIOS </span>
           </div>
         </div>
       </div>
