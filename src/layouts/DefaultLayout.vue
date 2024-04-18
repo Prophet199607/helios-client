@@ -20,7 +20,9 @@ const settingsStore = useSettingsStore();
        :class="[
         settingsStore.getSideBarState() ? 'w-[calc(100%-14rem)]' : 'w-full',
       ]">
-    <div class="ml-[100px]">
+    <div class="transition-all duration-500 ease-in-out" :class="[
+        settingsStore.getSideBarState() ? 'ml-[300px]' : 'ml-[100px]',
+      ]">
       <Breadcrumbs></Breadcrumbs>
     </div>
     <div class="block relative" x-data="{showChildren:false}" x-on:click.away="showChildren=false">
