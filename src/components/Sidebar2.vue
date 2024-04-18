@@ -47,66 +47,66 @@ const menus = ref([
     submenuItem: [
       {
         id: 2.1,
-        title: "Dashboard",
+        title: "New patient",
         pathName: "FleetTrackingDashboard",
       },
-      {
-        id: 2.2,
-        title: "Fleet Management",
-        pathName: "",
-        submenulv2: true,
-        submenuItemlv2: [
-          {
-            id: 2.21,
-            title: "Manage Company",
-            pathName: "ManageCompany",
-          },
-          { id: 2.22, title: "Fleet Models", pathName: "ManageFleetModels" },
-          { id: 2.23, title: "Fleets", pathName: "ManageFleets" },
-          {
-            id: 2.24,
-            title: "Managed Assigned Fleets",
-            pathName: "ManageAssignedFleets",
-          },
-        ],
-      },
-      {
-        id: 2.3,
-        title: "Workforce",
-        pathName: "",
-        submenulv2: true,
-        submenuItemlv2: [
-          {
-            id: 2.31,
-            title: "Manage Dispatchers",
-            pathName: "ManageDispatchers",
-          },
-          { id: 2.32, title: "Manage Drivers", pathName: "ManageDrivers" },
-          { id: 2.33, title: "Driver Ratings", pathName: "Fleets" },
-        ],
-      },
+      // {
+      //   id: 2.2,
+      //   title: "Fleet Management",
+      //   pathName: "",
+      //   submenulv2: true,
+      //   submenuItemlv2: [
+      //     {
+      //       id: 2.21,
+      //       title: "Manage Company",
+      //       pathName: "ManageCompany",
+      //     },
+      //     { id: 2.22, title: "Fleet Models", pathName: "ManageFleetModels" },
+      //     { id: 2.23, title: "Fleets", pathName: "ManageFleets" },
+      //     {
+      //       id: 2.24,
+      //       title: "Managed Assigned Fleets",
+      //       pathName: "ManageAssignedFleets",
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: 2.3,
+      //   title: "Workforce",
+      //   pathName: "",
+      //   submenulv2: true,
+      //   submenuItemlv2: [
+      //     {
+      //       id: 2.31,
+      //       title: "Manage Dispatchers",
+      //       pathName: "ManageDispatchers",
+      //     },
+      //     { id: 2.32, title: "Manage Drivers", pathName: "ManageDrivers" },
+      //     { id: 2.33, title: "Driver Ratings", pathName: "Fleets" },
+      //   ],
+      // },
     ],
   },
 
-  {
-    id: 3,
-    title: "Dispatch",
-    icon: "ri-map-pin-fill",
-    pathName: "",
-    submenu: true,
-    submenuItem: [
-      {
-        id: 3.1,
-        title: "Dashboard",
-        pathName: "DispatchDashboard",
-      },
-      { id: 2.2, title: "Dispatch", pathName: "DispatchMap" },
-      { id: 2.3, title: "Manage Bookings", pathName: "Fleets" },
-      { id: 2.4, title: "Settings", pathName: "Fleets" },
-      { id: 2.5, title: "Driver Status", pathName: "Fleets" },
-      { id: 2.6, title: "Push Logs", pathName: "Fleets" },
-    ],
-  },
+  // {
+  //   id: 3,
+  //   title: "Dispatch",
+  //   icon: "ri-map-pin-fill",
+  //   pathName: "",
+  //   submenu: true,
+  //   submenuItem: [
+  //     {
+  //       id: 3.1,
+  //       title: "Dashboard",
+  //       pathName: "DispatchDashboard",
+  //     },
+  //     { id: 2.2, title: "Dispatch", pathName: "DispatchMap" },
+  //     { id: 2.3, title: "Manage Bookings", pathName: "Fleets" },
+  //     { id: 2.4, title: "Settings", pathName: "Fleets" },
+  //     { id: 2.5, title: "Driver Status", pathName: "Fleets" },
+  //     { id: 2.6, title: "Push Logs", pathName: "Fleets" },
+  //   ],
+  // },
 ])
 
 const toggleSidebar = () => {

@@ -14,7 +14,7 @@ const expanded = ref(false)
       <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-2">
         <dashboard-card
             :svg_icon="user"
-            title="No. of Patients"
+            title="Total Patients"
             title_class="text-base-c"
             value="15"
             bg_color="bg-green-200"
@@ -28,14 +28,14 @@ const expanded = ref(false)
         ></dashboard-card>
         <dashboard-card
             svg_icon="payment_company"
-            title="Payments to Company"
+            title="Total Collections"
             title_class="text-sm-c"
             value="LKR 0.00"
             bg_color="bg-teal-200"
         ></dashboard-card>
         <dashboard-card
             svg_icon="cash_payment"
-            title="Cash payments"
+            title="Daily patients"
             title_class="text-base-c"
             value="LKR 0.00"
             bg_color="bg-yellow-300"
@@ -129,22 +129,22 @@ const expanded = ref(false)
         ></dashboard-card>
       </div>
 
-      <div class="flex justify-end cursor-pointer mt-2" @click="expanded = !expanded">
-        <button
-            v-if="expanded"
-            class="shadow-md w-20 flex justify-center items-center px-3 py-2 rounded-md gap-x-2 text-sm-c"
-        >
-          <i class="fa fa-caret-up" aria-hidden="true"></i>
-          Hide
-        </button>
-        <button
-            v-else
-            class="shadow-md w-32 flex justify-center items-center px-3 py-2 rounded-md gap-x-2 text-sm-c"
-        >
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
-          Show more
-        </button>
-      </div>
+<!--      <div class="flex justify-end cursor-pointer mt-2" @click="expanded = !expanded">-->
+<!--        <button-->
+<!--            v-if="expanded"-->
+<!--            class="shadow-md w-20 flex justify-center items-center px-3 py-2 rounded-md gap-x-2 text-sm-c"-->
+<!--        >-->
+<!--          <i class="fa fa-caret-up" aria-hidden="true"></i>-->
+<!--          Hide-->
+<!--        </button>-->
+<!--        <button-->
+<!--            v-else-->
+<!--            class="shadow-md w-32 flex justify-center items-center px-3 py-2 rounded-md gap-x-2 text-sm-c"-->
+<!--        >-->
+<!--          <i class="fa fa-caret-down" aria-hidden="true"></i>-->
+<!--          Show more-->
+<!--        </button>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
