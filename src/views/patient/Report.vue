@@ -50,7 +50,7 @@ onMounted(() => {
   <div class="grid grid-cols-5 gap-8">
     <!-- Smaller portion with the card -->
     <div class="col-span-2 bg-white shadow-lg rounded-lg p-6 flex flex-col items-center space-y-4">
-      <label for="images" class="block text-sm font-medium text-gray-700">Upload Image(s)</label>
+      <label for="images" class="block text-sm font-medium text-gray-700">Upload Image</label>
       <div class="relative w-full">
         <!-- Use a variable (e.g., isLoading) to track if the button is loading -->
         <input type="file"
