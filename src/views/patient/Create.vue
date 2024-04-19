@@ -8,7 +8,6 @@ import SuccessButton from "../../components/SuccessButton.vue";
 import Table from "../../components/Table.vue";
 import {formatCurrency1} from "../../utils/currencyUtils.js";
 import {useCustomerStore} from "../../store/CustomerStore.js";
-import {useCollectionStore} from "../../store/PatientStore.js";
 import 'vue-select/dist/vue-select.css';
 import {Field, Form, ErrorMessage} from 'vee-validate';
 import CustomerSearchableDropdown from "../../components/CustomerSearchableDropdown.vue";
@@ -19,7 +18,6 @@ const { printReceipt } = usePrint()
 
 
 const customerStore = useCustomerStore();
-const collectionStore = useCollectionStore();
 const router = useRouter();
 
 const showAddChequeModal = ref(false);
@@ -104,33 +102,6 @@ const onSaveCollection = () => {
     swal("Oops!", "Please add at least one cheque", "error");
     return;
   }
-
-  swal({
-    title: "Are you sure?",
-    text: "Do you want to save the payment?",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true
-  }).then(function (willDelete) {
-    if (willDelete) {
-      if (paymentMode.value === 'Cash') {
-        payment.value.paymentMode = paymentMode.value;
-        payments.value.push(payment.value)
-      }
-
-      collectionStore.saveCollection({
-        userName: localStorage.getItem('uname'),
-        loca: localStorage.getItem('loca'),
-        customerCode: customerCode.value,
-        refCode: localStorage.getItem('Emp_Code'),
-        payments: payments.value
-      }).then(res => {
-        printReceipt(res)
-      }).catch(e => {
-        console.log('error', e)
-      });
-    }
-  });
 }
 
 const banks = computed(() => {
