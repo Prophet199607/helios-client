@@ -98,9 +98,7 @@ const closeModal = () => {
 
 const onSaveCollection = () => {
   if (paymentMode.value === 'Cheque' && payments.value.length === 0) {
-    console.log("asasas")
     swal("Oops!", "Please add at least one cheque", "error");
-    return;
   }
 }
 
