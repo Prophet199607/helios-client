@@ -51,7 +51,7 @@ const menus = ref([
         pathName: "FleetTrackingDashboard",
       },
       {
-        id: 2.1,
+        id: 2.2,
         title: "Patient Reports",
         pathName: "patients-report",
       },
@@ -165,12 +165,14 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
                   :to="{ name: submenu.pathName }"
               >
                 <li
-                    class="text-gray-800 text-sm-c flex items-center transition-all duration-500 ease-in-out gap-x-4 cursor-pointer p-2 px-8 hover:bg-gray-100 hover:text-gray-600 rounded-md mt-1"
-                    :class="{ 'bg-gray-900': selectedSubMenu === submenu.id }"
+                    class="text-gray-800 text-sm-c flex items-center transition-all duration-500 ease-in-out
+                    gap-x-4 cursor-pointer p-2 px-8 hover:bg-gray-100 hover:text-gray-600 rounded-md mt-1"
+                    :class="{ 'bg-blue-600 text-white': selectedSubMenu === submenu.id }"
                     @click="navigateToPage(submenu.pathName, menu.id, submenu.id, 0)"
                 >
                     <span
-                        class="text-sm-c font-medium flex-1 transition-all duration-500 ease-in-out flex justify-between items-center"
+                        class="text-sm-c font-medium flex-1 transition-all duration-500 ease-in-out flex
+                        justify-between items-center"
                         :class="{ hidden: !settingsStore.getSideBarState() }"
                         @click="submenu.submenulv2 ? toggleSubmenuLv2(submenu.id) : null"
                     >
