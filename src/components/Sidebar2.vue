@@ -48,7 +48,7 @@ const menus = ref([
       {
         id: 2.1,
         title: "New patient",
-        pathName: "FleetTrackingDashboard",
+        pathName: "patients-create",
       },
       {
         id: 2.2,

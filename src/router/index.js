@@ -13,9 +13,14 @@ const routes = [
             },
             {
                 path: 'patients',
-                name: 'patients',
+                name: 'patients-index',
                 component: () => import("../views/patient/Index.vue"),
                 children: [
+                    {
+                        path: '',
+                        name: 'patients',
+                        component: () => import("../views/patient/Patient.vue")
+                    },
                     {
                         path: '',
                         name: 'patients-report',

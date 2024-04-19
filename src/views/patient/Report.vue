@@ -44,7 +44,7 @@ const clearData = () => {
 
   <div class="grid grid-cols-5 gap-8">
     <!-- Smaller portion with the card -->
-    <div class="col-span-2 bg-white shadow-lg rounded-lg p-6 flex flex-col items-center space-y-4">
+    <div class="col-span-2 bg-white shadow-lg rounded-lg p-6 flex flex-col items-center space-y-4 sticky top-0">
       <label for="images" class="block text-sm font-medium text-gray-700">Upload Image</label>
       <div class="relative w-full">
         <!-- Use a variable (e.g., isLoading) to track if the button is loading -->
@@ -60,7 +60,7 @@ const clearData = () => {
                 class="text-white font-medium py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out w-full">
           <!-- Show spinner when loading -->
           <span v-if="isLoading" class="mr-2 animate-spin">&#9696;</span>
-          Select Images
+          Select Image
         </button>
       </div>
       <div class="flex items-center justify-center w-full h-64 overflow-hidden">
@@ -74,7 +74,7 @@ const clearData = () => {
         <span>Prediction: </span>
         <span class="italic">{{ prediction }}</span>
       </div>
-      <button type="button"
+      <button v-if="prediction" type="button"
               @click="clearData"
               class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out w-full mt-4">
         Clear
@@ -85,15 +85,15 @@ const clearData = () => {
     <div class="col-span-3 bg-white shadow-lg rounded-lg p-6 space-y-4">
       <!-- Section 1: Introduction -->
       <div class="border-b pb-4">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Introduction</h2>
-        <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Introduction</h2>
+        <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
           ultricies consequat.</p>
       </div>
 
       <!-- Section 2: Causes -->
       <div class="border-b pb-4">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Causes</h2>
-        <ul class="list-disc pl-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Causes</h2>
+        <ul class="list-disc pl-4 text-sm">
           <li class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
           <li class="text-gray-600">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
           <li class="text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -104,8 +104,8 @@ const clearData = () => {
 
       <!-- Section 3: Symptoms -->
       <div class="border-b pb-4">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Symptoms</h2>
-        <ul class="list-disc pl-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Symptoms</h2>
+        <ul class="list-disc pl-4 text-sm">
           <li class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
           <li class="text-gray-600">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
           <li class="text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -116,15 +116,15 @@ const clearData = () => {
 
       <!-- Section 4: Treatment -->
       <div class="border-b pb-4">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Treatment</h2>
-        <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Treatment</h2>
+        <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
           ultricies consequat.</p>
       </div>
 
       <!-- Section 5: Prevention -->
       <div>
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Prevention</h2>
-        <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Prevention</h2>
+        <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
           ultricies consequat.</p>
       </div>
     </div>

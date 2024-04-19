@@ -10,10 +10,9 @@ export const useAuthStore = defineStore('authStore', () => {
     const login = (credentials) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const {data} = await api.post('/Users/Authenticate', {
+                const {data} = await api.post('/auth/authenticate', {
                     "username": credentials.username,
                     "password": credentials.password,
-                    "loca": credentials.loca
                 });
 
                 user.value = data;
@@ -21,11 +20,8 @@ export const useAuthStore = defineStore('authStore', () => {
 
                 localStorage.setItem('auth', true);
                 localStorage.setItem('user', JSON.stringify(data));
-                localStorage.setItem('loca', credentials.loca);
-                localStorage.setItem('uname', credentials.username);
-                localStorage.setItem('Emp_Code', data.Emp_Code);
-                localStorage.setItem('Emp_Name', data.Emp_Name);
-                localStorage.setItem('Token', data.Token);
+                localStorage.setItem('roles', data.roles);
+                localStorage.setItem('token_', data.token);
                 router.push({name: 'home'});
                 resolve()
             } catch (e) {

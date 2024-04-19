@@ -1,8 +1,4 @@
 <script>
-import axios from "axios";
-const api = axios.create({
-  baseURL: "http://124.43.6.45:4545/api",
-});
 export default {
   layout: null
 }
@@ -10,7 +6,7 @@ export default {
 
 <script setup>
 
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import {useAuthStore} from "../../store/AuthStore.js";
 const auth = useAuthStore();
 
@@ -19,27 +15,11 @@ import logo from '../../assets/images/logo.png';
 const form = ref({
   username: '',
   password: '',
-  loca: 'Select a location',
 });
 
-const locations = ref([]);
-
 const submit = async ()  => {
-  auth.login(form.value)
+  await auth.login(form.value)
 }
-
-const loadAllLocations = async () => {
-  try {
-    const {data} = await api.get('/Users/GetAllLocations');
-    locations.value = data.locations;
-  } catch (error) {
-
-  }
-}
-
-onMounted(() => {
-  loadAllLocations();
-})
 
 </script>
 
@@ -60,21 +40,11 @@ onMounted(() => {
         <h1 class="text-xl md:text-2xl font-bold leading-tight mt-5">Log in to your account</h1>
 
         <form class="mt-3" @submit.prevent="submit">
-          <div class="mb-6">
-            <label for="email" class="block mb-2 capitalize font-semibold text-base text-gray-700">Location</label>
-            <v-select v-model="form.loca" :options="locations" label="Description" :reduce="locations => locations.Code"
-                      class="uppercase text-[15px]"></v-select>
-            <!--            <div v-if="$page.props.errors.loca" class="text-red-500 text-lg mt-1"-->
-            <!--                 v-text="$page.props.errors.loca"></div>-->
-          </div>
-
           <div>
             <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="email">Username</label>
             <input type="text" name="" id="username" v-model="form.username" placeholder="Enter your username"
                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             >
-            <!--            <div v-if="$page.props.errors.username" class="text-red-500 font-normal text-xs mt-1"-->
-            <!--                 v-text="$page.props.errors.username"></div>-->
           </div>
 
           <div class="mt-4">
@@ -83,8 +53,6 @@ onMounted(() => {
                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border
                                focus:border-blue-500
                                             focus:bg-white focus:outline-none">
-            <!--            <div v-if="$page.props.errors.password" class="text-red-500 font-normal text-xs mt-1"-->
-            <!--                 v-text="$page.props.errors.password"></div>-->
           </div>
 
 <!--          <div class="text-right mt-2">-->

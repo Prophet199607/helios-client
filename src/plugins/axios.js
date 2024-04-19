@@ -1,10 +1,17 @@
 import axios from 'axios';
 
 const api = axios.create({
-    headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('Token')
-    },
-    baseURL: "http://124.43.6.45:4545/api",
+    baseURL: import.meta.env.VITE_APP_API_URL,
+});
+
+api.interceptors.request.use(config => {
+    if (!config.url.includes('login')) {
+        const token = localStorage.getItem('token_');
+        if (token) {
+            config.headers.Authorization = 'Bearer ' + token;
+        }
+    }
+    return config;
 });
 
 export default api;

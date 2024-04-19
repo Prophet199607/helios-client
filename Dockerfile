@@ -19,6 +19,7 @@ RUN npm run build
 # Use nginx as the base image for the production stage
 FROM nginx:stable-alpine as production-stage
 
+ENV VITE_APP_API_URL="http://34.87.29.178:8888/api/v1/"
 # Copy the built Vue app from the build-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
