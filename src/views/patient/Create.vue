@@ -1,32 +1,18 @@
 <script setup>
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
-import Modal from "../../components/Modal.vue";
-import Button from "../../components/Button.vue";
-import SecondaryButton from "../../components/SecondaryButton.vue";
 import SuccessButton from "../../components/SuccessButton.vue";
-import Table from "../../components/Table.vue";
-import {formatCurrency1} from "../../utils/currencyUtils.js";
 import {useCustomerStore} from "../../store/CustomerStore.js";
 import 'vue-select/dist/vue-select.css';
 import {Field, Form, ErrorMessage} from 'vee-validate';
 import CustomerSearchableDropdown from "../../components/CustomerSearchableDropdown.vue";
-import usePrint from "../../composables/usePrint.js";
 import swal from "sweetalert";
-
-const { printReceipt } = usePrint()
-
 
 const customerStore = useCustomerStore();
 const router = useRouter();
 
 const showAddChequeModal = ref(false);
 
-const payment_methods = [
-  {id: 'Cash', method_name: 'CASH'},
-  {id: 'Cheque', method_name: 'CHEQUE'},
-  {id: 'Card', method_name: 'CARD'},
-];
 const paymentMode = ref('');
 const paymentMode2 = ref('');
 const customerCode = ref('');

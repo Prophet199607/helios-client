@@ -4,7 +4,7 @@
 
 <template>
   <div class="overflow-x-auto">
-    <table class="table-auto w-full border-collapse border border-gray-200">
+    <table class="table-auto w-full border-collapse border border-gray-200" aria-describedby="">
       <thead>
       <tr class="bg-gray-50">
         <th class="px-4 py-2">PID</th>
@@ -35,6 +35,3 @@
 
 </template>
 
-<style scoped>
-
-</style>
