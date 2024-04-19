@@ -2,10 +2,7 @@
 
 import Button from "../../components/Button.vue";
 import {useRouter} from "vue-router";
-import {computed, onMounted, ref} from "vue";
 import {usePatientStore} from "../../store/PatientStore.js";
-import moment from "moment/moment.js";
-import swal from "sweetalert";
 
 const router = useRouter()
 const patientStore = usePatientStore();
@@ -40,9 +37,6 @@ const clearData = () => {
   uploaded_image.value = null;
 }
 
-onMounted(() => {
-  // loadData();
-})
 </script>
 
 <template>
