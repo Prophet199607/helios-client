@@ -16,7 +16,7 @@
         </li>
         <li class="flex cursor-pointer items-center font-sans text-sm font-normal leading-normal text-blue-gray-900 antialiased transition-colors duration-300 hover:text-pink-500">
           <a class="opacity-60" href="#">
-            <span>Roles</span>
+            <span>Dashboard</span>
           </a>
           <span class="pointer-events-none mx-2 select-none font-sans text-sm font-normal leading-normal text-blue-gray-500 antialiased">
           /
@@ -27,7 +27,7 @@
               class="font-medium text-blue-gray-900 transition-colors hover:text-pink-500"
               href="#"
           >
-            Breadcrumbs
+            New Patient
           </a>
         </li>
       </ol>
