@@ -46,9 +46,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-start mb-3">
-    <div class="uppercase font-semibold text-gray-600">Reports</div>
-  </div>
 
   <div class="grid grid-cols-5 gap-8">
     <!-- Smaller portion with the card -->
