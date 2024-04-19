@@ -8,7 +8,7 @@ import SuccessButton from "../../components/SuccessButton.vue";
 import Table from "../../components/Table.vue";
 import {formatCurrency1} from "../../utils/currencyUtils.js";
 import {useCustomerStore} from "../../store/CustomerStore.js";
-import {useCollectionStore} from "../../store/CollectionStore.js";
+import {useCollectionStore} from "../../store/PatientStore.js";
 import 'vue-select/dist/vue-select.css';
 import {Field, Form, ErrorMessage} from 'vee-validate';
 import CustomerSearchableDropdown from "../../components/CustomerSearchableDropdown.vue";
