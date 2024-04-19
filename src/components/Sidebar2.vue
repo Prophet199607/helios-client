@@ -50,6 +50,11 @@ const menus = ref([
         title: "New patient",
         pathName: "FleetTrackingDashboard",
       },
+      {
+        id: 2.1,
+        title: "Patient Reports",
+        pathName: "patients-report",
+      },
     ],
   },
 ])
