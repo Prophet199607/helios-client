@@ -128,23 +128,6 @@ const expanded = ref(false)
             bg_color="bg-sky-500"
         ></dashboard-card>
       </div>
-
-<!--      <div class="flex justify-end cursor-pointer mt-2" @click="expanded = !expanded">-->
-<!--        <button-->
-<!--            v-if="expanded"-->
-<!--            class="shadow-md w-20 flex justify-center items-center px-3 py-2 rounded-md gap-x-2 text-sm-c"-->
-<!--        >-->
-<!--          <i class="fa fa-caret-up" aria-hidden="true"></i>-->
-<!--          Hide-->
-<!--        </button>-->
-<!--        <button-->
-<!--            v-else-->
-<!--            class="shadow-md w-32 flex justify-center items-center px-3 py-2 rounded-md gap-x-2 text-sm-c"-->
-<!--        >-->
-<!--          <i class="fa fa-caret-down" aria-hidden="true"></i>-->
-<!--          Show more-->
-<!--        </button>-->
-<!--      </div>-->
     </div>
   </div>
 </template>
