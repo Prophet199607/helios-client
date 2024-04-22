@@ -1,12 +1,14 @@
 <script setup>
 
 import {ref, computed } from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useSettingsStore} from "../store/SettingsStore.js";
 const settingsStore = useSettingsStore();
 const router = useRouter();
+const route = useRoute();
 
 import logo from '../assets/images/logo.png';
+import MobileMenu from "./MobileMenu.vue";
 
 const submenuOpen_before_close = ref(0);
 const submenuLv2Open_before_close = ref(0)
@@ -37,7 +39,7 @@ const menus = ref([
     id: 1,
     title: "Dashboard",
     icon: "ri-dashboard-fill",
-    pathName: "Home",
+    pathName: "home",
   },
   {
     id: 2,
@@ -98,10 +100,14 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
   }
 }
 
+const checkCurrentRoute = (route_name) => {
+  return route.name === route_name;
+}
+
 </script>
 
 <template>
-  <div>
+  <div class="hidden md:block absolute top-0 z-[100]">
     <!-- sidebar header start -->
     <div
         class="fixed z-50 h-14 p-[14px] pt-4 transition-all duration-500 ease-in-out bg-white"
@@ -134,7 +140,7 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
           <div v-for="(menu, index) in menus" :key="index">
             <li
                 class="text-gray-800 text-sm-c flex items-center gap-x-4 cursor-pointer py-1 px-2 hover:bg-indigo-100 hover:text-gray-600 rounded-md my-1"
-                :class="{ 'bg-indigo-500 text-white': selectedMenu === menu.id && !menu.submenu }"
+                :class="{ 'bg-indigo-500 text-white': checkCurrentRoute(menu.pathName) }"
                 @click="navigateToPage(menu.pathName, menu.id, 0, 0, menu.submenu)"
             >
                 <span>
@@ -167,7 +173,7 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
                 <li
                     class="text-gray-800 text-sm-c flex items-center transition-all duration-500 ease-in-out
                     gap-x-4 cursor-pointer p-2 px-8 hover:bg-gray-100 hover:text-gray-600 rounded-md mt-1"
-                    :class="{ 'bg-blue-600 text-white': selectedSubMenu === submenu.id }"
+                    :class="{ 'bg-indigo-500 text-white': checkCurrentRoute(submenu.pathName) }"
                     @click="navigateToPage(submenu.pathName, menu.id, submenu.id, 0)"
                 >
                     <span
@@ -248,6 +254,7 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
     </div>
     <!-- sidebar content end -->
   </div>
+  <MobileMenu class="md:hidden" :menus="menus"></MobileMenu>
 </template>
 
 <style scoped>

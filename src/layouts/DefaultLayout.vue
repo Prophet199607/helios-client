@@ -1,10 +1,9 @@
 <script setup>
 
-import Navbar from "../components/Navbar.vue";
-import Sidebar from "../components/Sidebar.vue";
 import Sidebar2 from "../components/Sidebar2.vue";
 import {useSettingsStore} from "../store/SettingsStore.js";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
+import MobileMenu from "../components/MobileMenu.vue";
 
 const settingsStore = useSettingsStore();
 
@@ -16,7 +15,9 @@ const settingsStore = useSettingsStore();
     <meta name="description" content="Your page description">
   </Head>
 
-  <div class="absolute right-3 top-3 flex justify-between w-full items-center transition-all duration-500 ease-in-out"
+
+
+  <div class="absolute  right-3 hidden md:flex top-3 justify-between w-full items-center transition-all duration-500 ease-in-out"
        :class="[
         settingsStore.getSideBarState() ? 'w-[calc(100%-14rem)]' : 'w-full',
       ]">
@@ -69,16 +70,16 @@ const settingsStore = useSettingsStore();
     </div>
   </div>
 
-  <Sidebar2 class="transition-all duration-300 z-50 hidden md:block absolute top-0"></Sidebar2>
+  <Sidebar2 class="transition-all duration-300 z-50 absolute top-0"></Sidebar2>
 
   <!-- main content start -->
   <div
       class="transition-all duration-500 ease-in-out"
       :class="[
-        settingsStore.getSideBarState() ? 'w-[calc(100%-18rem)] ml-72' : 'w-full',
+        settingsStore.getSideBarState() ? 'md:w-[calc(100%-18rem)] md:ml-72 sm:ml-0 sm:w-full' : 'w-full',
       ]"
   >
-    <section class="p-6 -z-40 mt-[50px]">
+    <section class="p-6 -z-40 mt-[70px] md:mt-[50px]">
       <div class=" mx-auto transition-all duration-500 ease-in-out"
            :class="[
         settingsStore.getSideBarState() ? 'ml-[0px]' : 'ml-[75px]',
