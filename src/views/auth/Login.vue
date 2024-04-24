@@ -9,6 +9,8 @@ export default {
 import {ref} from "vue";
 import {useAuthStore} from "../../store/AuthStore.js";
 const auth = useAuthStore();
+import toast from "../../plugins/toast.js";
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import logo from '../../assets/images/logo.png';
 
@@ -19,6 +21,12 @@ const form = ref({
 
 const submit = async ()  => {
   await auth.login(form.value)
+      .then(() => {})
+      .catch(err => {
+        toast.error('Invalid Credentials!', {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      })
 }
 
 </script>
@@ -39,20 +47,23 @@ const submit = async ()  => {
         </div>
         <h1 class="text-xl md:text-2xl font-bold leading-tight mt-5">Log in to your account</h1>
 
-        <form class="mt-3" @submit.prevent="submit">
+        <Form class="mt-3" @submit="submit">
           <div>
             <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="email">Username</label>
-            <input type="text" name="" id="username" v-model="form.username" placeholder="Enter your username"
-                   class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-            >
+            <Field type="text" name="username" id="username" v-model="form.username" placeholder="Enter your username" as="input"
+                   class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white
+                   focus:outline-none" rules="required"
+            />
+            <ErrorMessage name="username" class="text-red-500 text-xs"/>
           </div>
 
           <div class="mt-4">
             <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="password">Password</label>
-            <input type="password" v-model="form.password" id="password" placeholder="Enter Password"
-                   class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border
-                               focus:border-blue-500
-                                            focus:bg-white focus:outline-none">
+            <Field type="password" name="password" v-model="form.password" id="password" placeholder="Enter Password" as="input"
+                   class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white
+                   focus:outline-none" rules="required"
+            />
+            <ErrorMessage name="password" class="text-red-500 text-xs"/>
           </div>
 
 <!--          <div class="text-right mt-2">-->
@@ -66,7 +77,7 @@ const submit = async ()  => {
                   :class="{'cursor-not-allowed bg-blue-300': form.processing}"
                   :disabled="form.processing">Log In
           </button>
-        </form>
+        </Form>
       </div>
     </div>
 

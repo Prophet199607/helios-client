@@ -9,7 +9,8 @@
     <div class="container mx-auto text-center">
       <h1 class="text-4xl font-bold mb-4">Welcome to Helios</h1>
       <p class="text-lg mb-8">Your trusted platform for diabetic retinopathy detection.</p>
-      <a href="#" class="bg-white text-blue-500 px-6 py-3 rounded-full font-bold hover:bg-blue-400 hover:text-white">Get Started</a>
+      <router-link :to="{name: 'checkup-request'}" class="bg-white text-blue-500 px-6 py-3 rounded-full font-bold hover:bg-blue-400 hover:text-white">
+        Create a Checkup Request</router-link>
     </div>
   </section>
 

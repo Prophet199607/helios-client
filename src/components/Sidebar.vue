@@ -9,12 +9,16 @@ const route = useRoute();
 
 import logo from '../assets/images/logo.png';
 import MobileMenu from "./MobileMenu.vue";
+import {useAuthStore} from "../store/AuthStore.js";
+const auth = useAuthStore();
 
 const submenuOpen_before_close = ref(0);
 const submenuLv2Open_before_close = ref(0)
 const selectedMenu = ref(1);
 const selectedSubMenu = ref(0);
 const selectedSubMenuLv2 = ref(0);
+
+const userRole = computed(() => auth.role)
 
 const submenuOpen = computed({
   get() {
@@ -40,22 +44,26 @@ const menus = ref([
     title: "Dashboard",
     icon: "ri-dashboard-fill",
     pathName: "home",
+    authRoles: ['ROLE_ADMIN', 'ROLE_USER']
   },
   {
     id: 2,
     title: "Manage Patients",
     icon: "ri-team-fill",
     submenu: true,
+    authRoles: ['ROLE_ADMIN' ,'ROLE_USER'],
     submenuItem: [
       {
         id: 2.1,
         title: "New patient",
         pathName: "patients-create",
+        authRoles: ['ROLE_ADMIN']
       },
       {
         id: 2.2,
         title: "Patient Reports",
         pathName: "patients-report",
+        authRoles: ['ROLE_ADMIN', 'ROLE_USER']
       },
     ],
   },
@@ -138,7 +146,7 @@ const checkCurrentRoute = (route_name) => {
         <!-- menu level 1 start -->
         <ul class="pt-2 mt-5">
           <div v-for="(menu, index) in menus" :key="index">
-            <li
+            <li v-if="menu.authRoles.includes(userRole)"
                 class="text-gray-800 text-sm-c flex items-center gap-x-4 cursor-pointer py-1 px-2 hover:bg-indigo-100 hover:text-gray-600 rounded-md my-1"
                 :class="{ 'bg-indigo-500 text-white': checkCurrentRoute(menu.pathName) }"
                 @click="navigateToPage(menu.pathName, menu.id, 0, 0, menu.submenu)"
@@ -171,6 +179,7 @@ const checkCurrentRoute = (route_name) => {
                   :to="{ name: submenu.pathName }"
               >
                 <li
+                    v-if="submenu.authRoles.includes(userRole)"
                     class="text-gray-800 text-sm-c flex items-center transition-all duration-500 ease-in-out
                     gap-x-4 cursor-pointer p-2 px-8 hover:bg-gray-100 hover:text-gray-600 rounded-md mt-1"
                     :class="{ 'bg-indigo-500 text-white': checkCurrentRoute(submenu.pathName) }"
