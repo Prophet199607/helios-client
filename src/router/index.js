@@ -54,6 +54,25 @@ const routes = [
                         component: () => import("../views/patient/Create.vue")
                     },
                 ]
+            },
+            {
+                path: 'users',
+                name: 'users-index',
+                component: () => import("../views/patient/Index.vue"),
+                children: [
+                    {
+                        path: '',
+                        name: 'patients',
+                        meta: { roles: ['ROLE_ADMIN'] },
+                        component: () => import("../views/patient/Patient.vue")
+                    },
+                    {
+                        path: 'create',
+                        name: 'patients-create',
+                        meta: { roles: ['ROLE_ADMIN'] },
+                        component: () => import("../views/patient/Create.vue")
+                    },
+                ]
             }
         ]
     },

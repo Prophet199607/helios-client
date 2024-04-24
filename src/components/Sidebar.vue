@@ -67,6 +67,21 @@ const menus = ref([
       },
     ],
   },
+  {
+    id: 3,
+    title: "Manage Users",
+    icon: "ri-nurse-fill",
+    submenu: true,
+    authRoles: ['ROLE_ADMIN'],
+    submenuItem: [
+      {
+        id: 2.1,
+        title: "Create New User",
+        pathName: "user-create",
+        authRoles: ['ROLE_ADMIN']
+      },
+    ],
+  },
 ])
 
 const toggleSidebar = () => {
