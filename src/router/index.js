@@ -1,15 +1,28 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import DefaultLayout from "../layouts/DefaultLayout.vue";
+import DashboardLayout from "../layouts/DashboardLayout.vue";
 
 const routes = [
     {
-        path: '/',
+        path: '',
         component: DefaultLayout,
         children: [
             {
                 path: '',
-                name: 'home',
-                component: () => import("../views/Home.vue")
+                name: 'index',
+                component: () => import("../views/Index.vue")
+            }
+        ]
+    },
+    {
+        path: '/dashboard',
+        component: DashboardLayout,
+        meta: { requiresAuth: true },
+        children: [
+            {
+                path: '',
+                name: 'dashboard',
+                component: () => import("../views/Dashboard.vue")
             },
             {
                 path: 'patients',
@@ -39,6 +52,11 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import("../views/auth/Login.vue")
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import("../views/auth/Register.vue")
     },
     // { path: '/:pathMatch(.*)', component: Home }
 ];

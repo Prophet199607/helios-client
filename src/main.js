@@ -15,19 +15,22 @@ import {useAuthStore} from "./store/AuthStore.js";
 
 const pinia = createPinia()
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
-
     const isAuthenticated = !!authStore.user;
 
-    if (!isAuthenticated && to.name !== 'login') {
-        return { name: 'login' }
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!isAuthenticated) {
+            next({ name: 'login' });
+        } else {
+            next();
+            // if (authStore.user)
+        }
+    } else {
+        next();
     }
+});
 
-    if (isAuthenticated && to.name === 'login') {
-        return { name: 'home' }
-    }
-})
 
 createApp(App)
     .use(router)
