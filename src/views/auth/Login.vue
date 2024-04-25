@@ -8,20 +8,24 @@ export default {
 
 import {ref} from "vue";
 import {useAuthStore} from "../../store/AuthStore.js";
+const router = useRouter();
+
 const auth = useAuthStore();
 import toast from "../../plugins/toast.js";
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import {Form, Field, ErrorMessage} from 'vee-validate';
 
 import logo from '../../assets/images/logo.png';
+import {useRouter} from "vue-router";
 
 const form = ref({
   username: '',
   password: '',
 });
 
-const submit = async ()  => {
+const submit = async () => {
   await auth.login(form.value)
-      .then(() => {})
+      .then(() => {
+      })
       .catch(err => {
         toast.error('Invalid Credentials!', {
           position: toast.POSITION.TOP_RIGHT
@@ -38,9 +42,11 @@ const submit = async ()  => {
       <img src="https://source.unsplash.com/random" alt="" class="w-full h-full object-cover">
     </div>
 
-    <div class="bg-white w-full md:max-w-md lg:max-w-full  md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+    <div class="bg-white relative w-full md:max-w-md lg:max-w-full  md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
         flex items-center justify-center">
-
+      <div class="absolute top-5 left-5 text-blue-500 text-sm cursor-pointer" @click="router.push({name: 'index'})">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> back to Home
+      </div>
       <div class="w-full h-100">
         <div class="flex justify-center">
           <img :src="logo" alt="" width="150">
@@ -50,7 +56,8 @@ const submit = async ()  => {
         <Form class="mt-3" @submit="submit">
           <div>
             <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="email">Username</label>
-            <Field type="text" name="username" id="username" v-model="form.username" placeholder="Enter your username" as="input"
+            <Field type="text" name="username" id="username" v-model="form.username" placeholder="Enter your username"
+                   as="input"
                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white
                    focus:outline-none" rules="required"
             />
@@ -59,18 +66,19 @@ const submit = async ()  => {
 
           <div class="mt-4">
             <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="password">Password</label>
-            <Field type="password" name="password" v-model="form.password" id="password" placeholder="Enter Password" as="input"
+            <Field type="password" name="password" v-model="form.password" id="password" placeholder="Enter Password"
+                   as="input"
                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white
                    focus:outline-none" rules="required"
             />
             <ErrorMessage name="password" class="text-red-500 text-xs"/>
           </div>
 
-<!--          <div class="text-right mt-2">-->
-<!--            <a href="#" class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">-->
-<!--              Forgot-->
-<!--              Password?</a>-->
-<!--          </div>-->
+          <!--          <div class="text-right mt-2">-->
+          <!--            <a href="#" class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">-->
+          <!--              Forgot-->
+          <!--              Password?</a>-->
+          <!--          </div>-->
 
           <button type="submit" class="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400
                     text-white font-semibold rounded-lg px-4 py-3 mt-6"
@@ -88,7 +96,8 @@ const submit = async ()  => {
 ::v-deep(.vs__search) {
   padding: 2px 4px;
 }
-::v-deep(.vs1__listbox)  {
+
+::v-deep(.vs1__listbox) {
   font-size: 0.50rem !important;
 }
 </style>

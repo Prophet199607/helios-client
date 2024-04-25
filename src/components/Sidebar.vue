@@ -139,7 +139,7 @@ const checkCurrentRoute = (route_name) => {
     >
       <div class="inline-flex items-center gap-x-2">
         <img class="transition-all duration-500 ease-in-out cursor-pointer block min-w-[40px]" :src="logo" alt="logo" width="50"
-             :class="{ 'rotate-[360deg]': settingsStore.getSideBarState() }">
+             :class="{ 'rotate-[360deg]': settingsStore.getSideBarState() }" @click="router.push({name: 'index'})">
         <div
             class="text-gray-800 origin-left font-medium text-xl-c transition-all duration-500 ease-in-out"
         >

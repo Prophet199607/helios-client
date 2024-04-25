@@ -3,7 +3,9 @@ import {ref} from "vue";
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import {useAuthStore} from "../../store/AuthStore.js";
 import toast from "../../plugins/toast.js";
+import {useRouter} from "vue-router";
 const auth = useAuthStore();
+const router = useRouter();
 
 const form = ref({
   firstName: '',
@@ -49,6 +51,9 @@ const submit = async ()  => {
 </script>
 
 <template>
+  <div class="absolute top-5 left-5 text-blue-500 text-sm cursor-pointer" @click="router.push({name: 'index'})">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> back to Home
+  </div>
   <div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-lg">
     <h1 class="text-2xl font-bold text-center mb-4">Registration Form</h1>
     <Form @submit="submit" class="space-y-4">

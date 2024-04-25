@@ -56,21 +56,21 @@ const routes = [
                 ]
             },
             {
-                path: 'users',
-                name: 'users-index',
-                component: () => import("../views/patient/Index.vue"),
+                path: 'user',
+                name: 'user-index',
+                component: () => import("../views/user/Index.vue"),
                 children: [
                     {
                         path: '',
-                        name: 'patients',
+                        name: 'users',
                         meta: { roles: ['ROLE_ADMIN'] },
-                        component: () => import("../views/patient/Patient.vue")
+                        component: () => import("../views/user/User.vue")
                     },
                     {
                         path: 'create',
-                        name: 'patients-create',
+                        name: 'user-create',
                         meta: { roles: ['ROLE_ADMIN'] },
-                        component: () => import("../views/patient/Create.vue")
+                        component: () => import("../views/user/Create.vue")
                     },
                 ]
             }
