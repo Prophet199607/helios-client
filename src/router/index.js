@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import DashboardLayout from "../layouts/DashboardLayout.vue";
+import UserProfileLayout from "../layouts/UserProfileLayout.vue";
 
 const routes = [
     {
@@ -27,7 +28,7 @@ const routes = [
             {
                 path: '',
                 name: 'dashboard',
-                meta: { roles: ['ROLE_ADMIN', 'ROLE_USER'] },
+                meta: { roles: ['ROLE_ADMIN'] },
                 component: () => import("../views/Dashboard.vue")
             },
             {
@@ -44,7 +45,7 @@ const routes = [
                     {
                         path: 'report',
                         name: 'patients-report',
-                        meta: { roles: ['ROLE_ADMIN', 'ROLE_USER'] },
+                        meta: { roles: ['ROLE_ADMIN'] },
                         component: () => import("../views/patient/Report.vue")
                     },
                     {
@@ -71,6 +72,38 @@ const routes = [
                         name: 'user-create',
                         meta: { roles: ['ROLE_ADMIN'] },
                         component: () => import("../views/user/Create.vue")
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        path: '/my-profile',
+        component: UserProfileLayout,
+        meta: { requiresAuth: true, roles: ['ROLE_USER'] },
+        children: [
+            {
+                path: '',
+                name: 'my-profile',
+                meta: { roles: ['ROLE_USER'] },
+                component: () => import("../views/PatientDashboard.vue")
+            },
+            {
+                path: 'appointments',
+                name: 'appointment-index',
+                component: () => import("../views/profile/appointments/Index.vue"),
+                children: [
+                    {
+                        path: '',
+                        name: 'appointments',
+                        meta: { roles: ['ROLE_USER'] },
+                        component: () => import("../views/profile/appointments/Appointments.vue")
+                    },
+                    {
+                        path: 'create',
+                        name: 'appointment-create',
+                        meta: { roles: ['ROLE_USER'] },
+                        component: () => import("../views/profile/appointments/NewAppointment.vue")
                     },
                 ]
             }

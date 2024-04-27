@@ -1,6 +1,6 @@
 <script setup>
 
-import Sidebar2 from "../components/Sidebar.vue";
+import Sidebar from "../components/Sidebar.vue";
 import {useSettingsStore} from "../store/SettingsStore.js";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import {useAuthStore} from "../store/AuthStore.js";
@@ -72,7 +72,7 @@ const settingsStore = useSettingsStore();
     </div>
   </div>
 
-  <Sidebar2 class="transition-all duration-300 z-50 absolute top-0"></Sidebar2>
+  <Sidebar class="transition-all duration-300 z-50 absolute top-0"></Sidebar>
 
   <!-- main content start -->
   <div

@@ -4,7 +4,7 @@ import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
 export const useAuthStore = defineStore('authStore', () => {
-    const user = ref(null)
+    const user = ref(localStorage.getItem('user'))
     const role = ref(localStorage.getItem('roles'))
     const router = useRouter();
     const login = (credentials) => {
