@@ -23,17 +23,18 @@ const routes = [
     {
         path: '/dashboard',
         component: DashboardLayout,
-        meta: { requiresAuth: true, roles: ['ROLE_ADMIN', 'ROLE_USER'] },
+        meta: { requiresAuth: true, roles: ['ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_LABORATORY'] },
         children: [
             {
                 path: '',
                 name: 'dashboard',
-                meta: { roles: ['ROLE_ADMIN'] },
+                meta: { roles: ['ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_LABORATORY'] },
                 component: () => import("../views/Dashboard.vue")
             },
             {
                 path: 'patients',
                 name: 'patients-index',
+                meta: { roles: ['ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_LABORATORY'] },
                 component: () => import("../views/patient/Index.vue"),
                 children: [
                     {
@@ -45,7 +46,7 @@ const routes = [
                     {
                         path: 'report',
                         name: 'patients-report',
-                        meta: { roles: ['ROLE_ADMIN'] },
+                        meta: { roles: ['ROLE_ADMIN', 'ROLE_DOCTOR'] },
                         component: () => import("../views/patient/Report.vue")
                     },
                     {
@@ -59,6 +60,7 @@ const routes = [
             {
                 path: 'user',
                 name: 'user-index',
+                meta: { roles: ['ROLE_ADMIN'] },
                 component: () => import("../views/user/Index.vue"),
                 children: [
                     {
@@ -72,6 +74,20 @@ const routes = [
                         name: 'user-create',
                         meta: { roles: ['ROLE_ADMIN'] },
                         component: () => import("../views/user/Create.vue")
+                    },
+                ]
+            },
+            {
+                path: 'laboratory',
+                name: 'laboratory-index',
+                meta: { roles: ['ROLE_LABORATORY'] },
+                component: () => import("../views/laboratory/Index.vue"),
+                children: [
+                    {
+                        path: 'upload',
+                        name: 'image-upload',
+                        meta: { roles: ['ROLE_LABORATORY'] },
+                        component: () => import("../views/laboratory/Upload.vue")
                     },
                 ]
             }

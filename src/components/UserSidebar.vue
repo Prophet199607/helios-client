@@ -1,8 +1,9 @@
 <script setup>
 
-import {ref, computed } from "vue";
+import {ref, computed} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useSettingsStore} from "../store/SettingsStore.js";
+
 const settingsStore = useSettingsStore();
 const router = useRouter();
 const route = useRoute();
@@ -10,6 +11,7 @@ const route = useRoute();
 import logo from '../assets/images/logo.png';
 import MobileMenu from "./MobileMenu.vue";
 import {useAuthStore} from "../store/AuthStore.js";
+
 const auth = useAuthStore();
 
 const selectedMenu = ref(1);
@@ -41,7 +43,7 @@ const menus = ref([
     id: 1,
     title: "My Diagnosis",
     icon: "ri-pulse-line",
-    pathName: "home",
+    pathName: "my-profile",
     authRoles: ['ROLE_USER']
   },
   {
@@ -75,7 +77,7 @@ const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
   selectedSubMenu.value = submenu;
   selectedSubMenuLv2.value = submenuLv2;
   if (!hasSubmenu) {
-    router.push({ name: pathName });
+    router.push({name: pathName});
   }
 }
 
@@ -94,7 +96,8 @@ const checkCurrentRoute = (route_name) => {
         style="z-index: 100"
     >
       <div class="inline-flex items-center gap-x-2">
-        <img class="transition-all duration-500 ease-in-out cursor-pointer block min-w-[40px]" :src="logo" alt="logo" width="50"
+        <img class="transition-all duration-500 ease-in-out cursor-pointer block min-w-[40px]" :src="logo" alt="logo"
+             width="50"
              :class="{ 'rotate-[360deg]': settingsStore.getSideBarState() }" @click="router.push({name: 'index'})">
         <div
             class="text-gray-800 origin-left font-medium text-xl-c transition-all duration-500 ease-in-out"
@@ -118,16 +121,16 @@ const checkCurrentRoute = (route_name) => {
         <ul class="pt-2 mt-5">
           <li
               class="text-sm-c flex items-center gap-x-4 cursor-pointer py-1 px-2 hover:bg-indigo-100
-              hover:text-gray-600 rounded-md my-1 bg-indigo-500 text-white"
+              hover:text-gray-600 rounded-md my-1 bg-indigo-800 text-white"
           >
                 <span>
                   <i class="ri-add-line text-2xl block float-left"></i>
                 </span>
             <router-link :to="{name: 'appointment-create'}"
-                class="text-sm font-medium flex-1 transition-all duration-500 py-2 ease-in-out flex justify-between items-center"
+                         class="text-sm font-medium flex-1 transition-all duration-500 py-2 ease-in-out flex justify-between items-center"
             >
-                  Make New Appointment
-                </router-link>
+              Make New Appointment
+            </router-link>
           </li>
           <div v-for="(menu, index) in menus" :key="index">
             <li v-if="menu.authRoles.includes(userRole)"

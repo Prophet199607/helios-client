@@ -4,6 +4,9 @@ import Button from "../../components/Button.vue";
 import {useRouter} from "vue-router";
 import {usePatientStore} from "../../store/PatientStore.js";
 import {ref} from "vue";
+import {dateFormat1} from "../../utils/dateUtil.js";
+import {Field, Form} from "vee-validate";
+import toast from "../../plugins/toast.js";
 
 const router = useRouter()
 const patientStore = usePatientStore();
@@ -12,6 +15,21 @@ const image_prev = ref(null)
 const uploaded_image = ref(null)
 let prediction = ref(null)
 let isLoading = ref(false)
+const searchText = ref("");
+let hasAppointment = ref(false)
+const appointments = ref(null);
+
+const form = ref({
+  reportStatus: "",
+  status: 0,
+  doctorRemark: "",
+  patient: {
+    patientId: "1"
+  },
+  appointment: {
+    appointmentId: "1"
+  }
+})
 
 const changeImages = (e) => {
   isLoading.value = true;
@@ -38,9 +56,77 @@ const clearData = () => {
   uploaded_image.value = null;
 }
 
+const getAppointmentType = (type) => {
+  switch (type) {
+    case 1:
+      return "Blood Glucose Monitoring";
+    case 2:
+      return "Diabetic Retinopathy Screening";
+    case 3:
+      return "Neuropathy Assessment";
+    case 4:
+      return "Foot Care Examination";
+    case 5:
+      return "Diabetes Education Session";
+    case 6:
+      return "Insulin Pump Consultation";
+    case 7:
+      return "Diabetes Medication Review";
+    case 8:
+      return "Nutritional Counseling";
+    case 9:
+      return "Kidney Function Test";
+    case 10:
+      return "Heart Health Evaluation";
+    default:
+      return "Unknown Type";
+  }
+}
+
+const onSearch = (e) => {
+  patientStore.getPendingAppointmentsByPatientNic(searchText.value)
+      .then((pred) => {
+        appointments.value = pred.data;
+        hasAppointment.value = true;
+      }).catch(err => {
+    console.log(err)
+  });
+}
+
+const submit = async ()  => {
+  form.value.reportStatus = prediction.value;
+  form.value.appointment.appointmentId = appointments.value[0].appointmentId;
+  form.value.patient.patientId = 1;
+  await patientStore.addDiagnosis(form.value)
+      .then(() => {
+        toast("Diagnosis updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT
+        });
+        setTimeout(() => {
+          router.push({name: 'dashboard'})
+        }, 1000)
+      }).catch(err => {
+        toast.error(err.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      })
+}
+
 </script>
 
 <template>
+
+  <div class="flex justify-end mb-5">
+    <div class="min-w-xl">
+      <div class="relative w-[350px]">
+        <input type="text" v-model="searchText" placeholder="Search..."
+               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-blue-500">
+        <button @click="onSearch" class="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white rounded-r-md">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="flex flex-col md:grid grid-cols-5 gap-8">
     <!-- Smaller portion with the card -->
@@ -82,50 +168,43 @@ const clearData = () => {
     </div>
 
     <!-- Larger portion with dummy content about diabetic retinopathy -->
-    <div class="col-span-3 bg-white shadow-lg rounded-lg p-6 space-y-4">
-      <!-- Section 1: Introduction -->
-      <div class="border-b pb-4">
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Introduction</h2>
-        <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
-          ultricies consequat.</p>
-      </div>
+    <div class="col-span-3">
+      <div class="w-full bg-white shadow-md rounded-lg overflow-hidden" v-for="appointment in appointments"
+           :key="appointment.appointmentId">
+        <div class="p-4">
+          <h2 class="text-lg font-bold mb-2">Appointment Details</h2>
+          <p class="text-gray-600 text-sm mb-2"><span class="font-bold">Appointment ID:</span>
+            {{ appointment.appointmentId }}</p>
+          <p class="text-gray-600 text-sm mb-2"><span class="font-bold mr-2">Status:</span>
+            <span class="bg-yellow-500 text-white px-2 py-1 rounded-md text-xs">Pending</span>
+          </p>
+          <p class="text-gray-600 text-sm mb-2"><span class="font-bold">Type:</span>
+            {{ getAppointmentType(appointment.appointmentType) }}</p>
+          <p class="text-gray-600 text-sm mb-2"><span class="font-bold">Preferred Date:</span>
+            {{ dateFormat1(appointment.preferredDate) }}</p>
+          <p class="text-gray-600 text-sm mb-2"><span class="font-bold">Preferred Time:</span>
+            {{ appointment.preferredTime }}</p>
+          <p class="text-gray-600 text-sm mb-2"><span class="font-bold">Additional Message:</span>
+            {{ appointment.additionalMessage }}</p>
+          <Form class="w-full" @submit="submit">
+            <div class="flex flex-col">
+              <label for="message" class="mb-1 text-gray-600">Doctor Remark</label>
+              <div class="flex flex-col w-[400px]">
+                <Field v-model="form.doctorRemark" id="message" name="message" rows="3"
+                       as="textarea"
+                       placeholder="Any diagnosis results"
+                       class="px-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring
+                    focus:border-blue-500 flex-grow"></Field>
+              </div>
+            </div>
+            <div class="flex mt-2 justify-start" v-if="prediction">
+              <button type="submit"
+                      class=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300">
+                Update</button>
+            </div>
+          </Form>
+        </div>
 
-      <!-- Section 2: Causes -->
-      <div class="border-b pb-4">
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Causes</h2>
-        <ul class="list-disc pl-4 text-sm">
-          <li class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-          <li class="text-gray-600">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-          <li class="text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat.
-          </li>
-        </ul>
-      </div>
-
-      <!-- Section 3: Symptoms -->
-      <div class="border-b pb-4">
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Symptoms</h2>
-        <ul class="list-disc pl-4 text-sm">
-          <li class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-          <li class="text-gray-600">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-          <li class="text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat.
-          </li>
-        </ul>
-      </div>
-
-      <!-- Section 4: Treatment -->
-      <div class="border-b pb-4">
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Treatment</h2>
-        <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
-          ultricies consequat.</p>
-      </div>
-
-      <!-- Section 5: Prevention -->
-      <div>
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Prevention</h2>
-        <p class="text-gray-600 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor libero eget ipsum
-          ultricies consequat.</p>
       </div>
     </div>
   </div>

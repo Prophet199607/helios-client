@@ -3,20 +3,26 @@
 import {ErrorMessage, Field, Form} from "vee-validate";
 import {computed, onMounted, ref} from "vue";
 import {useAuthStore} from "../../../store/AuthStore.js";
+import {useAppointmentStore} from "../../../store/AppointmentStore.js";
+import toast from "../../../plugins/toast.js";
+import {useRouter} from "vue-router";
+const router = useRouter()
 const auth = useAuthStore();
+const appointmentStore = useAppointmentStore();
 
 const minDate = ref(null);
 const minTime = ref(null);
 
 const form = ref({
-  firstName: '',
-  lastName: '',
-  email: '',
-  contactNumber: '',
-  nic: '',
-  address1: '',
-  address2: '',
-  isActive: true,
+  isAccepted: false,
+  status: 0,
+  appointmentType: "",
+  additionalMessage: "",
+  preferredDate: "",
+  preferredTime: "",
+  patient: {
+    patientId: "1"
+  }
 });
 
 const loggedUser = computed(() => {
@@ -24,15 +30,20 @@ const loggedUser = computed(() => {
 })
 
 const submit = async ()  => {
-  // await auth.register(form.value)
-  //     .then(() => {
-  //
-  //     }).catch(err => {
-  //       console.log(err)
-  //       toast.error(err.response.data.message, {
-  //         position: toast.POSITION.TOP_RIGHT
-  //       });
-  //     })
+  await appointmentStore.saveAppointment(form.value)
+      .then(() => {
+        toast("Appointment created successfully!", {
+          position: toast.POSITION.TOP_RIGHT
+        });
+        setTimeout(() => {
+          router.push({name: 'appointments'})
+        }, 3000)
+      }).catch(err => {
+        console.log(err)
+        toast.error(err.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      })
 }
 
 onMounted(() => {
@@ -71,16 +82,23 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex justify-between items-center">
-        <label for="doctor" class="mb-1 text-gray-600">Select Doctor</label>
+        <label for="doctor" class="mb-1 text-gray-600">Appointment Type</label>
         <div class="flex flex-col w-[400px]">
-          <Field v-model="form.doctor" id="doctor" name="doctor"
+          <Field v-model="form.appointmentType" id="doctor" name="doctor"
                  as="select" rules="required"
                   class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500 flex-grow"
                   >
-            <option disabled value="">Select a doctor</option>
-            <option value="Dr. Smith">Dr. Smith</option>
-            <option value="Dr. Johnson">Dr. Johnson</option>
-            <option value="Dr. Brown">Dr. Brown</option>
+            <option disabled value="" selected>Select an appointment type</option>
+            <option value="1">Blood Glucose Monitoring</option>
+            <option value="2">Diabetic Retinopathy Screening</option>
+            <option value="3">Neuropathy Assessment</option>
+            <option value="4">Foot Care Examination</option>
+            <option value="5">Diabetes Education Session</option>
+            <option value="6">Insulin Pump Consultation</option>
+            <option value="7">Diabetes Medication Review</option>
+            <option value="8">Nutritional Counseling</option>
+            <option value="9">Kidney Function Test</option>
+            <option value="10">Heart Health Evaluation</option>
           </Field>
           <ErrorMessage name="doctor" class="text-red-500 text-xs mt-[5px] ml-[5px]"/>
         </div>
@@ -88,7 +106,7 @@ onMounted(() => {
       <div class="flex justify-between items-center">
         <label for="date" class="mb-1 text-gray-600">Preferred Date</label>
         <div class="flex flex-col w-[400px]">
-          <Field type="date" v-model="form.date" id="date" name="date"
+          <Field type="date" v-model="form.preferredDate" id="date" name="date"
                  as="input" rules="required"
                  class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500 flex-grow"
                  ref="dateInput" :min="minDate" />
@@ -98,7 +116,7 @@ onMounted(() => {
       <div class="flex justify-between items-center">
         <label for="time" class="mb-1 text-gray-600">Preferred Time</label>
         <div class="flex flex-col w-[400px]">
-          <Field type="time" v-model="form.time" id="time" name="time"
+          <Field type="time" v-model="form.preferredTime" id="time" name="time"
                  as="input" rules="required"
                  class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500 flex-grow"
                  ref="timeInput" :min="minTime"/>
@@ -108,7 +126,7 @@ onMounted(() => {
       <div class="flex justify-between items-center">
         <label for="message" class="mb-1 text-gray-600">Additional Message (Optional)</label>
         <div class="flex flex-col w-[400px]">
-          <Field v-model="form.message" id="message" name="message" rows="3"
+          <Field v-model="form.additionalMessage" id="message" name="message" rows="3"
                  as="textarea"
                     placeholder="Any additional information you'd like to provide"
                     class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring

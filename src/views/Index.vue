@@ -51,9 +51,7 @@ const submit = async ()  => {
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="lg:w-3/4 xl:w-2/4 p-[20px] relative z-10 h-100 ">
       <div>
-        <h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">A better life starts with a
-          beautiful
-          Eyes.</h1>
+        <h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">Illuminate your life with the vision of wellness</h1>
         <p class="text-white text-xl md:text-2xl leading-snug mt-4">Welcome to the Helios. Your trusted Diabetic retinopathy prevension partner</p>
         <a href="#features" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold scroll-smooth">
           Make an Appointment</a>

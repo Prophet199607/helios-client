@@ -44,26 +44,26 @@ const menus = ref([
     title: "Dashboard",
     icon: "ri-dashboard-fill",
     pathName: "home",
-    authRoles: ['ROLE_ADMIN', 'ROLE_USER']
+    authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_LABORATORY']
   },
   {
     id: 2,
     title: "Manage Patients",
     icon: "ri-team-fill",
     submenu: true,
-    authRoles: ['ROLE_ADMIN' ,'ROLE_USER'],
+    authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR'],
     submenuItem: [
       {
         id: 2.1,
         title: "New patient",
         pathName: "patients-create",
-        authRoles: ['ROLE_ADMIN']
+        authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
       },
       {
         id: 2.2,
         title: "Patient Reports",
         pathName: "patients-report",
-        authRoles: ['ROLE_ADMIN', 'ROLE_USER']
+        authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
       },
     ],
   },
@@ -75,12 +75,19 @@ const menus = ref([
     authRoles: ['ROLE_ADMIN'],
     submenuItem: [
       {
-        id: 2.1,
+        id: 3.1,
         title: "Create New User",
         pathName: "user-create",
         authRoles: ['ROLE_ADMIN']
       },
     ],
+  },
+  {
+    id: 4,
+    title: "Upload Retinal Images",
+    icon: "ri-upload-cloud-fill",
+    pathName: "image-upload",
+    authRoles: ['ROLE_LABORATORY']
   },
 ])
 
