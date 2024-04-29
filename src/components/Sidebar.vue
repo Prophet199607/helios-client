@@ -1,59 +1,294 @@
 <script setup>
+
+import {ref, computed } from "vue";
+import {useRoute, useRouter} from "vue-router";
 import {useSettingsStore} from "../store/SettingsStore.js";
+const settingsStore = useSettingsStore();
+const router = useRouter();
+const route = useRoute();
+
+import logo from '../assets/images/logo.png';
+import MobileMenu from "./MobileMenu.vue";
 import {useAuthStore} from "../store/AuthStore.js";
-const settings = useSettingsStore();
 const auth = useAuthStore();
 
-const closeSidebar = () => {
-  alert(0)
+const submenuOpen_before_close = ref(0);
+const submenuLv2Open_before_close = ref(0)
+const selectedMenu = ref(1);
+const selectedSubMenu = ref(0);
+const selectedSubMenuLv2 = ref(0);
+
+const userRole = computed(() => auth.role)
+
+const submenuOpen = computed({
+  get() {
+    return settingsStore.getSubmenuStatus()
+  },
+  set(newValue) {
+    settingsStore.setSubmenuStatus(newValue)
+  }
+})
+
+const submenuLv2Open = computed({
+  get() {
+    return settingsStore.getSubmenuLv2Status()
+  },
+  set(newValue) {
+    settingsStore.setSubmenuLv2Status(newValue)
+  }
+})
+
+const menus = ref([
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: "ri-dashboard-fill",
+    pathName: "home",
+    authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_LABORATORY']
+  },
+  {
+    id: 2,
+    title: "Manage Patients",
+    icon: "ri-team-fill",
+    submenu: true,
+    authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR'],
+    submenuItem: [
+      {
+        id: 2.1,
+        title: "New patient",
+        pathName: "patients-create",
+        authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
+      },
+      {
+        id: 2.2,
+        title: "Patient Reports",
+        pathName: "patients-report",
+        authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: "Manage Users",
+    icon: "ri-nurse-fill",
+    submenu: true,
+    authRoles: ['ROLE_ADMIN'],
+    submenuItem: [
+      {
+        id: 3.1,
+        title: "Create New User",
+        pathName: "user-create",
+        authRoles: ['ROLE_ADMIN']
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: "Upload Retinal Images",
+    icon: "ri-upload-cloud-fill",
+    pathName: "image-upload",
+    authRoles: ['ROLE_LABORATORY']
+  },
+])
+
+const toggleSidebar = () => {
+  if (settingsStore.getSideBarState()) {
+    submenuOpen_before_close.value = submenuOpen.value;
+    submenuLv2Open_before_close.value = submenuLv2Open.value;
+    submenuOpen.value = 0;
+    submenuLv2Open.value = 0;
+  } else {
+    submenuOpen.value = submenuOpen_before_close.value;
+    submenuLv2Open.value = submenuLv2Open_before_close.value;
+  }
+  settingsStore.toggleSidebar(!settingsStore.getSideBarState())
+}
+
+const toggleSubmenu = (menu_id) => {
+  submenuLv2Open.value = 0;
+  if (submenuOpen.value === menu_id) {
+    submenuOpen.value = 0;
+    return;
+  }
+  submenuOpen.value = menu_id;
+}
+
+const toggleSubmenuLv2 = (menu_id) => {
+  if (submenuLv2Open.value === menu_id) {
+    submenuLv2Open.value = 0;
+    return;
+  }
+  submenuLv2Open.value = menu_id;
+}
+
+const navigateToPage = (pathName, id, submenu, submenuLv2, hasSubmenu) => {
+  selectedMenu.value = id;
+  selectedSubMenu.value = submenu;
+  selectedSubMenuLv2.value = submenuLv2;
+  if (!hasSubmenu) {
+    router.push({ name: pathName });
+  }
+}
+
+const checkCurrentRoute = (route_name) => {
+  return route.name === route_name;
 }
 
 </script>
 
 <template>
-  <transition name="fade" mode="out-in">
-    <div class="absolute z-50 w-[300px] h-[calc(100%-58px)] bg-white p-3 text-white my-settings shadow-2xl"
-         :class="{ 'hidden': !settings.isSidebarOpen, 'md:flex': settings.isSidebarOpen }">
-      <ul class="flex flex-col gap-y-1">
-        <li @click="settings.toggleSidebar" class=" px-2 rounded">
-          <router-link :to="{name: 'home'}" class="no-underline text-base text-gray-800 capitalize font-semibold flex items-center
-          gap-x-3 w-[260px] hover:no-underline hover:bg-blue-100 hover:text-gray-800 px-3 py-3 rounded-md"
-          active-class="bg-blue-900 text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/></svg>
-            Home
-          </router-link>
-        </li>
-        <li @click="settings.toggleSidebar" class=" px-2 rounded">
-          <router-link :to="{name: 'collections-index'}" class="no-underline text-base text-gray-800 capitalize font-semibold flex items-center
-          gap-x-3 w-[260px] hover:no-underline hover:bg-blue-100 hover:text-gray-800 px-3 py-3 rounded-md"
-                       active-class="bg-blue-900 text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15c0-1.09 1.01-1.85 2.7-1.85c1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61c0 2.31 1.91 3.46 4.7 4.13c2.5.6 3 1.48 3 2.41c0 .69-.49 1.79-2.7 1.79c-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55c0-2.84-2.43-3.81-4.7-4.4"/></svg>
-            Collections
-          </router-link>
-        </li>
-        <li @click="settings.toggleSidebar" class=" px-2 rounded">
-          <router-link :to="{name: 'sales-orders-index'}" class="no-underline text-base text-gray-800 capitalize font-semibold flex items-center
-          gap-x-3 w-[260px] hover:no-underline hover:bg-blue-100 hover:text-gray-800 px-3 py-3 rounded-md"
-                       active-class="bg-blue-900 text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M13 10h-2V8h2zm0-4h-2V1h2zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2s-.9-2-2-2m10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2s2-.9 2-2s-.9-2-2-2m-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03L21 4.96L19.25 4l-3.7 7H8.53L4.27 2H1v2h2l3.6 7.59l-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7z"/></svg>
-            Sales Order
-          </router-link>
-        </li>
-        <li @click="auth.logout()" class=" px-2 rounded">
-          <div class="no-underline text-base text-gray-800 capitalize font-semibold flex items-center
-          gap-x-3 w-[260px] hover:no-underline hover:bg-blue-100 hover:text-gray-800 px-3 py-3 rounded-md">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M13 3h-2v10h2zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0 1 19 12c0 3.87-3.13 7-7 7A6.995 6.995 0 0 1 7.58 6.58L6.17 5.17A8.932 8.932 0 0 0 3 12a9 9 0 0 0 18 0c0-2.74-1.23-5.18-3.17-6.83"/></svg>
-            Logout
+  <div class="hidden md:block absolute top-0 z-[100]">
+    <!-- sidebar header start -->
+    <div
+        class="fixed z-50 h-14 p-[14px] pt-4 transition-all duration-500 ease-in-out bg-white"
+        :class="[settingsStore.getSideBarState() ? 'w-72' : 'w-16']"
+        style="z-index: 100"
+    >
+      <div class="inline-flex items-center gap-x-2">
+        <img class="transition-all duration-500 ease-in-out cursor-pointer block min-w-[40px]" :src="logo" alt="logo" width="50"
+             :class="{ 'rotate-[360deg]': settingsStore.getSideBarState() }" @click="router.push({name: 'index'})">
+        <div
+            class="text-gray-800 origin-left font-medium text-xl-c transition-all duration-500 ease-in-out"
+        >
+          <div class="flex items-center justify-start w-full gap-x-2 transition-all duration-500 ease-in-out">
+            <span class="flex font-bold uppercase transition-all duration-500 ease-in-out origin-left"
+                  :class="{ 'text-[0px]': !settingsStore.getSideBarState() }">HELIOS </span>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-  </transition>
+    <!-- sidebar header end -->
+    <!-- sidebar content start -->
+    <div
+        class="h-screen shadow-2xl bg-white p-3 pt-12 transition-all duration-500 ease-in-out fixed overflow-auto sidebar z-50"
+        style="height: 100vh"
+        :class="[settingsStore.getSideBarState() ? 'w-72' : 'w-16']"
+    >
+      <div>
+        <!-- menu level 1 start -->
+        <ul class="pt-2 mt-5">
+          <div v-for="(menu, index) in menus" :key="index">
+            <li v-if="menu.authRoles.includes(userRole)"
+                class="text-gray-800 text-sm-c flex items-center gap-x-4 cursor-pointer py-1 px-2 hover:bg-indigo-100 hover:text-gray-600 rounded-md my-1"
+                :class="{ 'bg-indigo-500 text-white': checkCurrentRoute(menu.pathName) }"
+                @click="navigateToPage(menu.pathName, menu.id, 0, 0, menu.submenu)"
+            >
+                <span>
+                  <i class="text-2xl block float-left" :class="menu.icon"></i>
+                </span>
+              <span
+                  class="text-sm font-medium flex-1 transition-all duration-500 ease-in-out flex justify-between items-center"
+                  :class="{ hidden: !settingsStore.getSideBarState() }"
+                  @click="menu.submenu ? toggleSubmenu(menu.id) : null"
+              >
+                  {{ menu.title }}
+                  <i
+                      class="fa fa-chevron-down"
+                      :class="{ 'rotate-180': submenuOpen === menu.id }"
+                      aria-hidden="true"
+                      v-if="menu.submenu"
+                  ></i>
+                </span>
+            </li>
+            <!-- menu level 2 start -->
+            <ul
+                v-if="menu.submenu && submenuOpen === menu.id"
+                class="transition-all duration-500 ease-in-out"
+            >
+              <div
+                  v-for="(submenu, index) in menu.submenuItem"
+                  :key="index"
+                  :to="{ name: submenu.pathName }"
+              >
+                <li
+                    v-if="submenu.authRoles.includes(userRole)"
+                    class="text-gray-800 text-sm-c flex items-center transition-all duration-500 ease-in-out
+                    gap-x-4 cursor-pointer p-2 px-8 hover:bg-gray-100 hover:text-gray-600 rounded-md mt-1"
+                    :class="{ 'bg-indigo-500 text-white': checkCurrentRoute(submenu.pathName) }"
+                    @click="navigateToPage(submenu.pathName, menu.id, submenu.id, 0)"
+                >
+                    <span
+                        class="text-sm-c font-medium flex-1 transition-all duration-500 ease-in-out flex
+                        justify-between items-center"
+                        :class="{ hidden: !settingsStore.getSideBarState() }"
+                        @click="submenu.submenulv2 ? toggleSubmenuLv2(submenu.id) : null"
+                    >
+                      {{ submenu.title }}
+                      <i
+                          class="fa fa-chevron-down"
+                          :class="{ 'rotate-180': submenuLv2Open === submenu.id }"
+                          aria-hidden="true"
+                          v-if="submenu.submenulv2"
+                      ></i>
+                    </span>
+                </li>
+                <!-- menu level 3 start -->
+                <ul v-if="submenu.submenulv2 && submenuLv2Open === submenu.id">
+                  <div
+                      v-for="(submenuLv2, index) in submenu.submenuItemlv2"
+                      :key="index"
+                      :to="{ name: submenuLv2.pathName }"
+                  >
+                    <li
+                        class="text-gray-800 text-sm-c flex items-center gap-x-4 cursor-pointer p-2 px-12 hover:bg-gray-100 hover:text-gray-600 rounded-md mt-1"
+                        :class="{
+                          'bg-gray-900': selectedSubMenuLv2 === submenuLv2.id,
+                        }"
+                        @click="
+                          navigateToPage(
+                            submenuLv2.pathName,
+                            menu.id,
+                            submenu.id,
+                            submenuLv2.id
+                          )
+                        "
+                    >
+                        <span
+                            class="text-sm-c font-medium flex-1 transition-all duration-500 ease-in-out flex justify-between items-center"
+                            :class="{
+                            hidden: !settingsStore.getSideBarState(),
+                          }"
+                        >
+                          {{ submenuLv2.title }}
+                        </span>
+                    </li>
+                  </div>
+                </ul>
+                <!-- menu level 3 end -->
+              </div>
+            </ul>
+            <!-- menu level 2 end -->
+          </div>
+        </ul>
+        <!-- menu level 1 end -->
+      </div>
+      <!-- sidebar footer start -->
+
+      <div
+          class="fixed bottom-0 bg-primary text-gray-800 h-10 left-0 right-0 cursor-pointer transition-all duration-500 ease-in-out"
+          :class="[settingsStore.getSideBarState() ? 'w-72' : 'w-16']"
+          @click="toggleSidebar"
+      >
+        <div class="flex justify-between items-center px-5">
+          <div
+              class="flex justify-center items-center text-gray-800 font-bold text-base-c"
+          >
+            <i
+                class="ri-arrow-left-s-line z-50 text-3xl text-white transition-all duration-500 ease-in-out"
+                :class="[
+                  settingsStore.getSideBarState() ? 'rotate-0' : 'rotate-180',
+                ]"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <!-- sidebar footer end -->
+    </div>
+    <!-- sidebar content end -->
+  </div>
+  <MobileMenu class="md:hidden" :menus="menus"></MobileMenu>
 </template>
 
 <style scoped>
-.my-settings {
-  transition-property: opacity, transform;
-  transition-duration: 0.3s;
-}
+
 </style>

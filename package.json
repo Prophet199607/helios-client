@@ -1,5 +1,5 @@
 {
-  "name": "dinapala-rep-app",
+  "name": "helios-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -19,7 +19,8 @@
     "vee-validate": "^4.12.5",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
-    "vue-select": "^4.0.0-beta.6"
+    "vue-select": "^4.0.0-beta.6",
+    "vue3-toastify": "^0.2.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",

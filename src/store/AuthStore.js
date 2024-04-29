@@ -4,9 +4,9 @@ import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
 export const useAuthStore = defineStore('authStore', () => {
-    const user = ref(null)
+    const user = ref(localStorage.getItem('user'))
+    const role = ref(localStorage.getItem('roles'))
     const router = useRouter();
-    const route = useRoute();
     const login = (credentials) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -16,13 +16,30 @@ export const useAuthStore = defineStore('authStore', () => {
                 });
 
                 user.value = data;
-                user.value.loca = credentials.loca;
-
+                role.value = data.roles[0];
                 localStorage.setItem('auth', true);
                 localStorage.setItem('user', JSON.stringify(data));
-                localStorage.setItem('roles', data.roles);
+                localStorage.setItem('roles', data.roles[0]);
                 localStorage.setItem('token_', data.token);
-                router.push({name: 'home'});
+
+                if (data.roles[0] === 'ROLE_USER') {
+                    router.push({name: 'index'});
+                } else {
+                    router.push({name: 'dashboard'});
+                }
+
+                resolve()
+            } catch (e) {
+                reject(e)
+            }
+        })
+    };
+
+    const register = (payload) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const {data} = await api.post('/register', payload);
+                router.push({name: 'index'});
                 resolve()
             } catch (e) {
                 reject(e)
@@ -44,13 +61,10 @@ export const useAuthStore = defineStore('authStore', () => {
         user.value = null;
         localStorage.setItem('auth', false);
         localStorage.removeItem('user');
-        localStorage.removeItem('loca');
-        localStorage.removeItem('uname');
-        localStorage.removeItem('Emp_Code');
-        localStorage.removeItem('Emp_Name');
-        localStorage.removeItem('Token');
+        localStorage.removeItem('roles');
+        localStorage.removeItem('token_');
         router.push({name: 'login'})
     };
 
-    return {login, checkUserLogStatus, logout, user};
+    return {login, register, checkUserLogStatus, logout, user, role};
 })
