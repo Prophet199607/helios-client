@@ -1,7 +1,6 @@
 <script setup>
 import {useRouter} from "vue-router";
 import SuccessButton from "../../components/SuccessButton.vue";
-import {useCustomerStore} from "../../store/CustomerStore.js";
 import 'vue-select/dist/vue-select.css';
 import {Field, Form, ErrorMessage} from 'vee-validate';
 import {ref} from "vue";
