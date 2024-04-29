@@ -4,8 +4,6 @@ import {onMounted} from "vue";
 
 const auth = useAuthStore();
 
-
-
 onMounted(() => {
   auth.checkUserLogStatus();
 })
