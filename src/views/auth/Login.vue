@@ -39,7 +39,6 @@ const submit = () => {
           <img :src="logo" alt="" width="150">
         </div>
         <h1 class="text-xl md:text-2xl font-bold leading-tight mt-5">Log in to your account</h1>
-
         <Form class="mt-3" @submit="submit">
           <div>
             <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="username">Username</label>
