@@ -80,7 +80,3 @@ import logo from '../assets/images/logo.png';
     </div>
   </footer>
 </template>
-
-<style scoped>
-
-</style>

@@ -2,9 +2,6 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 const router = useRouter();
-defineProps(() => {
-  menus: Array
-})
 
 const open = ref(false)
 const subMenuOpen = ref(false)
@@ -121,7 +118,3 @@ const navigateToPage = (pathName) => {
     </svg>
   </div>
 </template>
-
-<style scoped>
-
-</style>

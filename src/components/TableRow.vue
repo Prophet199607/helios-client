@@ -7,7 +7,3 @@
     <slot></slot>
   </tr>
 </template>
-
-<style scoped>
-
-</style>
