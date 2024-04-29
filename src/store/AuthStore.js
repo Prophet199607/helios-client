@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import api from "../plugins/axios.js";
 import {ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import { useRouter} from "vue-router";
 
 export const useAuthStore = defineStore('authStore', () => {
     const user = ref(localStorage.getItem('user'))
@@ -23,9 +23,9 @@ export const useAuthStore = defineStore('authStore', () => {
                 localStorage.setItem('token_', data.token);
 
                 if (data.roles[0] === 'ROLE_USER') {
-                    router.push({name: 'index'});
+                    await router.push({name: 'index'});
                 } else {
-                    router.push({name: 'dashboard'});
+                    await router.push({name: 'dashboard'});
                 }
 
                 resolve()
@@ -38,8 +38,8 @@ export const useAuthStore = defineStore('authStore', () => {
     const register = (payload) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const {data} = await api.post('/register', payload);
-                router.push({name: 'index'});
+                await api.post('/register', payload);
+                await router.push({name: 'index'});
                 resolve()
             } catch (e) {
                 reject(e)
@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('authStore', () => {
         if (auth) {
             user.value = JSON.parse(localStorage.getItem('user'));
         } else {
-            router.replace({name: 'login'});
+            router.replace({name: 'login'}).then(_ => {});
         }
     };
 
@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('authStore', () => {
         localStorage.removeItem('user');
         localStorage.removeItem('roles');
         localStorage.removeItem('token_');
-        router.push({name: 'login'})
+        router.push({name: 'login'}).then(_ => {})
     };
 
     return {login, register, checkUserLogStatus, logout, user, role};
