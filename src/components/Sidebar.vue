@@ -288,7 +288,3 @@ const checkCurrentRoute = (route_name) => {
   </div>
   <MobileMenu class="md:hidden" :menus="menus"></MobileMenu>
 </template>
-
-<style scoped>
-
-</style>
