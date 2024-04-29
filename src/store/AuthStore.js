@@ -7,32 +7,28 @@ export const useAuthStore = defineStore('authStore', () => {
     const user = ref(localStorage.getItem('user'))
     const role = ref(localStorage.getItem('roles'))
     const router = useRouter();
-    const login = (credentials) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const {data} = await api.post('/auth/authenticate', {
-                    "username": credentials.username,
-                    "password": credentials.password,
-                });
+    const login = async (credentials) => {
+        try {
+            const {data} = await api.post('/auth/authenticate', {
+                "username": credentials.username,
+                "password": credentials.password,
+            });
 
-                user.value = data;
-                role.value = data.roles[0];
-                localStorage.setItem('auth', true);
-                localStorage.setItem('user', JSON.stringify(data));
-                localStorage.setItem('roles', data.roles[0]);
-                localStorage.setItem('token_', data.token);
+            user.value = data;
+            role.value = data.roles[0];
+            localStorage.setItem('auth', true);
+            localStorage.setItem('user', JSON.stringify(data));
+            localStorage.setItem('roles', data.roles[0]);
+            localStorage.setItem('token_', data.token);
 
-                if (data.roles[0] === 'ROLE_USER') {
-                    await router.push({name: 'index'});
-                } else {
-                    await router.push({name: 'dashboard'});
-                }
-
-                resolve()
-            } catch (e) {
-                reject(e)
+            if (data.roles[0] === 'ROLE_USER') {
+                await router.push({name: 'index'});
+            } else {
+                await router.push({name: 'dashboard'});
             }
-        })
+        } catch (e) {
+
+        }
     };
 
     const register = (payload) => {
