@@ -85,10 +85,4 @@ const settingsStore = useSettingsStore();
     </section>
   </div>
   <!-- main content end -->
-
-
 </template>
-
-<style scoped>
-
-</style>

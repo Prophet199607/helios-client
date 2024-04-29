@@ -2,7 +2,7 @@
 
 import {computed, onMounted} from "vue";
 import {useAppointmentStore} from "../../../store/AppointmentStore.js";
-import {dateFormat1, timeFormat1} from "../../../utils/dateUtil.js";
+import {dateFormat1} from "../../../utils/dateUtil.js";
 
 const appointmentStore = useAppointmentStore();
 
@@ -41,16 +41,8 @@ onMounted(() => {
           <td class="border px-4 py-2 text-right">{{appointment.preferredTime}}</td>
           <td class="border px-4 py-2">{{appointment.additionalMessage}}</td>
         </tr>
-        <!-- Additional rows here -->
         </tbody>
       </table>
     </div>
-
-
   </div>
-
 </template>
-
-<style scoped>
-
-</style>

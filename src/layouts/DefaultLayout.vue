@@ -19,9 +19,4 @@ const settingsStore = useSettingsStore();
     <router-view/>
     <Footer></Footer>
   </div>
-
 </template>
-
-<style scoped>
-
-</style>

@@ -204,11 +204,8 @@ const submit = async ()  => {
             </div>
           </Form>
         </div>
-
       </div>
     </div>
   </div>
-
-
 </template>
 

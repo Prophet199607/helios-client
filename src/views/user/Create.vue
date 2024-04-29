@@ -20,7 +20,7 @@ const form = ref({
   isActive: true,
 });
 const submit = () => {
-
+  console.log("ok")
 }
 
 </script>

@@ -1,6 +1,6 @@
 <script setup>
 
-import {computed, onMounted, ref} from "vue";
+import {ref} from "vue";
 import {useAuthStore} from "../../store/AuthStore.js";
 import {useAppointmentStore} from "../../store/AppointmentStore.js";
 import toast from "../../plugins/toast.js";
@@ -28,10 +28,6 @@ const form = ref({
     patientId: "1"
   }
 });
-
-const loggedUser = computed(() => {
-  return auth.user;
-})
 
 const submit = async () => {
   await appointmentStore.saveAppointment(form.value)
@@ -187,13 +183,5 @@ const clearData = () => {
         </Form>
       </div>
     </div>
-
-
-
   </div>
-
 </template>
-
-<style scoped>
-
-</style>
