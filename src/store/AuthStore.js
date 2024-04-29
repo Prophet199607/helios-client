@@ -31,16 +31,13 @@ export const useAuthStore = defineStore('authStore', () => {
         }
     };
 
-    const register = (payload) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                await api.post('/register', payload);
-                await router.push({name: 'index'});
-                resolve()
-            } catch (e) {
-                reject(e)
-            }
-        })
+    const register = async (payload) => {
+        try {
+            await api.post('/register', payload);
+            await router.push({name: 'index'});
+        } catch (e) {
+
+        }
     };
 
     const checkUserLogStatus = () => {
