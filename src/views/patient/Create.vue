@@ -92,9 +92,6 @@ const banks = computed(() => {
   return customerStore.banks;
 })
 
-const getBankName = (code) => {
-  return banks.value.find(el => el.Bank_Code === code).Bank_Name;
-}
 
 const updateHiddenCustomerField = () => {
   customerCode2.value = customerCode.value;
@@ -108,10 +105,7 @@ const updateHiddenBankField = () => {
   bank2.value = payment.value.bank;
 };
 
-const requiredValidation = (value) => {
-  if (!value) {
-    return 'This field is required!';
-  }
+const requiredValidation = () => {
   return true;
 }
 
@@ -145,7 +139,6 @@ watch(() => payment.value.bank, (newVal, oldVal) => {
 })
 
 onMounted(() => {
-  customerStore.loadCustomers()
   customerStore.loadBanks()
 })
 </script>
