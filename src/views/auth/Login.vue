@@ -8,11 +8,12 @@ export default {
 
 import {ref} from "vue";
 import {useAuthStore} from "../../store/AuthStore.js";
+
 const router = useRouter();
 
 const auth = useAuthStore();
 import toast from "../../plugins/toast.js";
-import {Form, Field, ErrorMessage} from 'vee-validate';
+import {Field, ErrorMessage} from 'vee-validate';
 
 import logo from '../../assets/images/logo.png';
 import {useRouter} from "vue-router";
@@ -24,24 +25,19 @@ const form = ref({
 
 const submit = async () => {
   await auth.login(form.value)
-      .then(() => {
-      })
-      .catch(err => {
+      .catch(_ => {
         toast.error('Invalid Credentials!', {
           position: toast.POSITION.TOP_RIGHT
         });
       })
 }
-
 </script>
 
 <template>
   <section class="flex flex-col md:flex-row h-screen items-center">
-
     <div class="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
       <img src="../../../public/images/login.jpg" alt="" class="w-full h-full object-cover">
     </div>
-
     <div class="bg-white relative w-full md:max-w-md lg:max-w-full  md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
         flex items-center justify-center">
       <div class="absolute top-5 left-5 text-blue-500 text-sm cursor-pointer" @click="router.push({name: 'index'})">
@@ -55,7 +51,7 @@ const submit = async () => {
 
         <Form class="mt-3" @submit="submit">
           <div>
-            <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="email">Username</label>
+            <label class="block mb-2 capitalize font-semibold text-base text-gray-700" for="username">Username</label>
             <Field type="text" name="username" id="username" v-model="form.username" placeholder="Enter your username"
                    as="input"
                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white
@@ -73,12 +69,6 @@ const submit = async () => {
             />
             <ErrorMessage name="password" class="text-red-500 text-xs"/>
           </div>
-
-          <!--          <div class="text-right mt-2">-->
-          <!--            <a href="#" class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">-->
-          <!--              Forgot-->
-          <!--              Password?</a>-->
-          <!--          </div>-->
 
           <button type="submit" class="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400
                     text-white font-semibold rounded-lg px-4 py-3 mt-6"
