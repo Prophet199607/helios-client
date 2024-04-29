@@ -24,13 +24,6 @@ const form = ref({
 
 const submit = async () => {
   await auth.login(form.value)
-      .then(() => {
-      })
-      .catch(_ => {
-        toast.error('Invalid Credentials!', {
-          position: toast.POSITION.TOP_RIGHT
-        });
-      })
 }
 </script>
 
