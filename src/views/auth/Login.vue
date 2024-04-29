@@ -22,8 +22,8 @@ const form = ref({
   password: '',
 });
 
-const submit = async () => {
-  await auth.login(form.value)
+const submit = () => {
+  auth.login(form.value)
 }
 </script>
 
