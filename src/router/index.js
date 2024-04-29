@@ -138,7 +138,7 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import("../views/auth/LL.vue")
+        component: () => import("../views/auth/Login.vue")
     },
     {
         path: '/404',
