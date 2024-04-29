@@ -25,11 +25,6 @@ const form = ref({
 
 const submit = async () => {
   await auth.login(form.value)
-      .catch(_ => {
-        toast.error('Invalid Credentials!', {
-          position: toast.POSITION.TOP_RIGHT
-        });
-      })
 }
 </script>
 
@@ -38,7 +33,7 @@ const submit = async () => {
     <div class="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
       <img src="../../../public/images/login.jpg" alt="" class="w-full h-full object-cover">
     </div>
-    <div class="bg-white relative w-full md:max-w-md lg:max-w-full  md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+    <div class="bg-white relative w-full md:max-w-md lg:max-w-full md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
         flex items-center justify-center">
       <div class="absolute top-5 left-5 text-blue-500 text-sm cursor-pointer" @click="router.push({name: 'index'})">
         <i class="fa fa-arrow-left" aria-hidden="true"></i> back to Home
