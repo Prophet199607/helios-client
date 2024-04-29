@@ -1,28 +1,19 @@
-<script setup>
-
-</script>
-
 <template>
-  <div class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="max-w-md mx-auto bg-white rounded p-5 shadow-md">
-      <div class="text-center mb-5">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-             class="h-12 w-12 mx-auto text-red-500">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 3a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V3z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 8h8M9 12h6m-7 4h4" />
-        </svg>
-        <h1 class="text-2xl font-bold">404 - Page Not Found</h1>
-        <p class="text-gray-500">The page you are looking for might have been removed or is temporarily unavailable.</p>
+  <div class="h-screen w-screen bg-gray-50 flex items-center">
+    <div class="container flex flex-col md:flex-row items-center justify-between px-5 text-gray-700">
+      <div class="w-full lg:w-1/2 mx-8">
+        <div class="text-7xl text-green-500 font-dark font-extrabold mb-8"> 404</div>
+        <p class="text-2xl md:text-3xl font-light leading-normal mb-8">
+          Sorry we couldn't find the page you're looking for
+        </p>
+
+        <router-link :to="{name: 'index'}" class="px-5 inline py-3 text-sm font-medium leading-5 shadow-2xl text-white
+        transition-all duration-400 border border-transparent rounded-lg focus:outline-none bg-green-600
+        active:bg-red-600 hover:bg-red-700">back to homepage</router-link>
       </div>
-      <router-link :to="{name: 'index'}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-        Go to Home
-      </router-link>
+      <div class="w-full lg:flex lg:justify-end lg:w-1/2 mx-5 my-12">
+        <img src="https://user-images.githubusercontent.com/43953425/166269493-acd08ccb-4df3-4474-95c7-ad1034d3c070.svg" class="" alt="Page not found">
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

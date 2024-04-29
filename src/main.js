@@ -35,8 +35,6 @@ const pinia = createPinia()
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
     const isAuthenticated = !!authStore.user;
-    console.log(to.meta.roles)
-    console.log(authStore.role)
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!isAuthenticated) {

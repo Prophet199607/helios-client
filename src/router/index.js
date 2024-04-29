@@ -14,6 +14,16 @@ const routes = [
                 component: () => import("../views/Index.vue")
             },
             {
+                path: 'FAQ',
+                name: 'FAQ',
+                component: () => import("../views/FAQ.vue")
+            },
+            {
+                path: '/register',
+                name: 'register',
+                component: () => import("../views/auth/Register.vue")
+            },
+            {
                 path: 'checkup-request',
                 name: 'checkup-request',
                 component: () => import("../views/CheckupRequest.vue")
@@ -131,16 +141,12 @@ const routes = [
         component: () => import("../views/auth/Login.vue")
     },
     {
-        path: '/register',
-        name: 'register',
-        component: () => import("../views/auth/Register.vue")
-    },
-    {
         path: '/404',
         name: '404',
+        meta: { requiresAuth: false},
         component: () => import("../views/auth/404.vue")
     },
-    // { path: '/:pathMatch(.*)', component: Home }
+    // { path: '/:pathMatch(.*)', component: DefaultLayout }
 ];
 
 const router = createRouter({

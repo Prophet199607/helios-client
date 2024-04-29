@@ -2,6 +2,7 @@
 
 import Navbar from "../components/Navbar.vue";
 import {useSettingsStore} from "../store/SettingsStore.js";
+import Footer from "../components/Footer.vue";
 
 const settingsStore = useSettingsStore();
 
@@ -9,13 +10,14 @@ const settingsStore = useSettingsStore();
 
 <template>
   <Head>
-    <title>My app</title>
+    <title>Helios</title>
     <meta name="description" content="Your page description">
   </Head>
 
   <div>
     <Navbar></Navbar>
     <router-view/>
+    <Footer></Footer>
   </div>
 
 </template>

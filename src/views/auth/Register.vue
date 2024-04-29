@@ -42,10 +42,7 @@ const submit = async ()  => {
 </script>
 
 <template>
-  <div class="absolute top-5 left-5 text-blue-500 text-sm cursor-pointer" @click="router.push({name: 'index'})">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i> back to Home
-  </div>
-  <div class="container mx-auto max-w-xl mt-10 p-6 bg-white rounded-lg shadow-lg">
+  <div class="container mx-auto max-w-xl my-10 p-6 bg-white rounded-lg shadow-lg mt-[200px]">
     <h1 class="text-3xl font-bold text-center mb-8">Registration Form</h1>
     <Form @submit="submit" class="grid grid-cols-2 gap-6 text-sm">
       <div>
