@@ -34,7 +34,6 @@ const submit = async () => {
 }
 
 </script>
-
 <template>
   <section class="flex flex-col md:flex-row h-screen items-center">
 
@@ -88,7 +87,6 @@ const submit = async () => {
         </Form>
       </div>
     </div>
-
   </section>
 </template>
 
