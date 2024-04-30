@@ -8,13 +8,15 @@ from selenium.webdriver.support import expected_conditions as EC
 # Set Chrome options for headless mode
 chrome_options = Options()
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
 
 # Assuming you have downloaded the appropriate WebDriver for your browser and placed it in your PATH
 # For example, Chrome WebDriver: https://sites.google.com/a/chromium.org/chromedriver/downloads
 driver = webdriver.Chrome(options=chrome_options)
 
 # Open the Vue 3 app
-driver.get("http://localhost:3000")
+driver.get("http://35.187.242.96:3000")
 
 # Find the login elements by their CSS selectors or other attributes
 username_input = WebDriverWait(driver, 10).until(
