@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex gap-x-3 items-center shadow-md px-4 py-4 rounded-2xl" :class="bg_color">
+  <div class="flex gap-x-3 items-center justify-between shadow-md px-4 py-4 rounded-2xl" :class="bg_color">
     <div class="w-32">
       <div class="font-bold text-xl">{{ value }}</div>
       <div :class="title_class">{{ title }}</div>

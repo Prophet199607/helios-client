@@ -43,7 +43,7 @@ const menus = ref([
     id: 1,
     title: "Dashboard",
     icon: "ri-dashboard-fill",
-    pathName: "home",
+    pathName: "dashboard",
     authRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_LABORATORY']
   },
   {

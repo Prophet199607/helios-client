@@ -7,6 +7,7 @@ import {ref} from "vue";
 import {dateFormat1} from "../../utils/dateUtil.js";
 import {Field, Form} from "vee-validate";
 import toast from "../../plugins/toast.js";
+import Breadcrumbs from "../../components/Breadcrumbs.vue";
 
 const router = useRouter()
 const patientStore = usePatientStore();
@@ -115,6 +116,9 @@ const submit = async ()  => {
 </script>
 
 <template>
+  <Breadcrumbs :items="[{name: 'Patient', path: 'patients', hasMore: true},
+  {name: 'Report', path: 'patients-report', hasMore: false}]"
+               class="absolute top-[20px] max-w-[250px]"></Breadcrumbs>
 
   <div class="flex justify-end mb-5">
     <div class="min-w-xl">
