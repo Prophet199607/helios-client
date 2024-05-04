@@ -25,7 +25,6 @@ const settingsStore = useSettingsStore();
     <div class="transition-all duration-500 ease-in-out" :class="[
         settingsStore.getSideBarState() ? 'ml-[300px]' : 'ml-[100px]',
       ]">
-<!--      <Breadcrumbs :items="[{name: 'Patient', path: 'patient-index'}]"></Breadcrumbs>-->
     </div>
     <div class="block relative" x-data="{showChildren:false}" x-on:click.away="showChildren=false">
       <a href="#" class="flex items-center h-10 leading-10 px-4 rounded cursor-pointer no-underline  duration-100 mx-1 "
