@@ -29,7 +29,7 @@ def test_login():
     login_button.click()
 
 def test_registration():
-    driver.get("http://your_website.com/registration_form")
+    driver.get("http://35.187.242.96:3000/register")
 
     driver.find_element_by_id("firstName").send_keys("John")
     driver.find_element_by_id("lastName").send_keys("Doe")
