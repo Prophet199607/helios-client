@@ -31,19 +31,47 @@ def test_login():
 def test_registration():
     driver.get("http://35.187.242.96:3000/register")
 
-    driver.find_element_by_id("firstName").send_keys("John")
-    driver.find_element_by_id("lastName").send_keys("Doe")
-    driver.find_element_by_id("email").send_keys("john.doe@example.com")
-    driver.find_element_by_id("contactNumber").send_keys("1234567890")
-    driver.find_element_by_id("nic").send_keys("123456789V")
-    driver.find_element_by_id("address1").send_keys("123 Main St")
-    driver.find_element_by_id("address2").send_keys("Apt 101")
-    driver.find_element_by_id("userName").send_keys("johndoe")
-    driver.find_element_by_id("password").send_keys("password123")
+    first_name_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='firstName']"))
+    )
+    last_name_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='lastName']"))
+    )
+    email_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='email']"))
+    )
+    contact_number_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='contactNumber']"))
+    )
+    nic_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='nic']"))
+    )
+    address1_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='address1']"))
+    )
+    address2_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='address2']"))
+    )
+    username_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='userName']"))
+    )
+    password_input = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='password']"))
+    )
+    register_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))
+    )
 
-    driver.find_element_by_css_selector("button[type='submit']").click()
-
-    time.sleep(2)
+    first_name_input.send_keys("John")
+    last_name_input.send_keys("Doe")
+    email_input.send_keys("johndoe@example.com")
+    contact_number_input.send_keys("johndoe@example.com")
+    nic_input.send_keys("199589566914")
+    address1_input.send_keys("test address1")
+    address2_input.send_keys("test address2")
+    username_input.send_keys("john")
+    password_input.send_keys("password123")
+    register_button.click()
 
     assert "Registration successful" in driver.page_source
 
