@@ -6,6 +6,7 @@ import {useAuthStore} from "../../../store/AuthStore.js";
 import {useAppointmentStore} from "../../../store/AppointmentStore.js";
 import toast from "../../../plugins/toast.js";
 import {useRouter} from "vue-router";
+import Breadcrumbs from "../../../components/Breadcrumbs.vue";
 const router = useRouter()
 const auth = useAuthStore();
 const appointmentStore = useAppointmentStore();
@@ -58,6 +59,10 @@ onMounted(() => {
 </script>
 
 <template>
+  <Breadcrumbs :items="[{name: 'Appointments', path: 'appointment-index', hasMore: true},
+  {name: 'New Appointment', path: 'appointment-create', hasMore: false}]"
+               class="absolute top-[20px] max-w-[500px]"></Breadcrumbs>
+
   <div class="container max-w-2xl p-6">
     <h2 class="mb-10">New Appointment</h2>
     <Form @submit="submit" class="grid grid-cols-1 gap-6 text-sm">
