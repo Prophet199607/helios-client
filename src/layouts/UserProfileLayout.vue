@@ -1,7 +1,6 @@
 <script setup>
 
 import {useSettingsStore} from "../store/SettingsStore.js";
-import Breadcrumbs from "../components/Breadcrumbs.vue";
 import {useAuthStore} from "../store/AuthStore.js";
 import UserSidebar from "../components/UserSidebar.vue";
 
