@@ -11,7 +11,7 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(options=chrome_options)
-driver.get("http://35.187.242.96:3000")
+driver.get("http://34.126.175.155:3000")
 
 def test_login():
     username_input = WebDriverWait(driver, 10).until(
