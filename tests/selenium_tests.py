@@ -29,7 +29,7 @@ def test_login():
     login_button.click()
 
 def test_registration():
-    driver.get("http://35.187.242.96:3000/register")
+    driver.get("http://34.126.175.155:3000/register")
 
     first_name_input = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "input[id='firstName']"))
