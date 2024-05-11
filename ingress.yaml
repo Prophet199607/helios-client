@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: helios-client-app-ingress
+spec:
+  rules:
+    - host: helios-medicare.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: helios-client-app-service
+                port:
+                  number: 80
