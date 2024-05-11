@@ -11,7 +11,7 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(options=chrome_options)
-driver.get("http://34.126.175.155:3000")
+driver.get("http://34.126.175.155")
 
 def test_login():
     username_input = WebDriverWait(driver, 10).until(
@@ -29,7 +29,7 @@ def test_login():
     login_button.click()
 
 def test_registration():
-    driver.get("http://34.126.175.155:3000/register")
+    driver.get("http://34.126.175.155/register")
 
     first_name_input = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "input[id='firstName']"))
